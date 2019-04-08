@@ -1,6 +1,6 @@
-namespace DatingApp.API.Models
+namespace DatingApp.API.Dtos
 {
-    public class Movie
+    public class MovieForReturnDto
     {
         public int Id { get; set; }
         public string Poster_path { get; set; }
@@ -10,10 +10,6 @@ namespace DatingApp.API.Models
         public string Year { get; set; }
         public string Release_date { get; set; }
         public int Runtime { get; set; }
-        public string imdb_id { get; set; }
-        public MovieCategory MovieCategories { get; set; }
-        public int MovieCategoryId { get; set; }
-
-       
+        
     }
 }

@@ -48,6 +48,7 @@ namespace DatingApp.API
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>(); 
             services.AddScoped<IDatingRepository, DatingRepository>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
             //authentication middleware
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options => {

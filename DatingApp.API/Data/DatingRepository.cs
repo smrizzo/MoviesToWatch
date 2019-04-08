@@ -45,7 +45,8 @@ namespace DatingApp.API.Data
         }
 
       public async Task<User> GetUser(int id)
-      {
+      { 
+        // var users = await _context.Users.Include(p => p.MovieCategories).FirstOrDefaultAsync(u => u.Id == id);
          var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
 
          return user;

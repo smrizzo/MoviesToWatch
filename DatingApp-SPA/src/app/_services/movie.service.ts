@@ -3,20 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { OmdbMovie } from '../_models/omdbMovie';
 import { tap } from 'rxjs/operators';
+import { MovieDb } from '../_models/movieDb';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-baseUrl = 'http://localhost:5000/api/search/movies/';
-omdbMovies: OmdbMovie[];
+baseUrl = 'http://localhost:5000/api/search/movies';
+// omdbMovies: OmdbMovie[];
+movieDb: MovieDb[];
 constructor(private http: HttpClient) { }
 
-searchMovies(term: string): Observable<OmdbMovie[]> {
+searchMovies(term: string): Observable<MovieDb[]> {
   if (!term.trim()) {
     return of([]);
   }
-  return this.http.get<OmdbMovie[]>(`${this.baseUrl}/s=${term}`);
+  return this.http.get<MovieDb[]>(`${this.baseUrl}/s=${term}`);
 }
 
 // getMovie(): Observable<any> {

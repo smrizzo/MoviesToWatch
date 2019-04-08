@@ -18,6 +18,28 @@
          "isMain": true,
          "description": "Non deserunt labore sunt ex laboris et adipisicing ullamco officia minim."
        }
+     ],
+     "MovieCategories": [
+       {
+         "title": "Marvel Movies",
+         "description": "These are my favorite kind of movies",
+         "Movies": [
+           {
+             "poster_path": "/9TUR3s1PMJHwDRbpm7PWQ0S7IRy.jpg",
+             "title": "Rocky",
+             "overview": "When world heavyweight boxing champion, Apollo Creed wants to give an unknown fighter a shot at the title as a publicity stunt, his handlers choose palooka Rocky Balboa, an uneducated collector for a Philadelphia loan shark. Rocky teams up with trainer  Mickey Goldmill to make the most of this once in a lifetime break",
+             "year": "1976",
+             "release_date": "1976-11-21",
+             "runtime": "119",
+             "imdb_id": "tt0075148"
+             
+             
+           }
+         ]
+       },{
+         "title": "Romantics",
+         "description": "Mostly romantic comedies"
+       }
      ]
    },
    {

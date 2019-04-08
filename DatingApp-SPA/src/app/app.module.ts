@@ -33,6 +33,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { ListResolver } from './_resolver/lists.resolver';
 import { MovieService } from './_services/movie.service';
 import { MovieSearchComponent } from './movie/movie-search/movie-search.component';
+import { MovieCardComponent } from './movie/movie-card/movie-card.component';
 
 
 
@@ -54,7 +55,8 @@ export function tokenGetter() {
       MemberEditComponent,
       PhotoEditorComponent,
       TimeAgoPipe,
-      MovieSearchComponent
+      MovieSearchComponent,
+      MovieCardComponent
    ],
    imports: [
       BrowserModule,

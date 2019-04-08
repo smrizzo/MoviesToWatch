@@ -22,6 +22,10 @@ namespace DatingApp.API.Helpers
 
         public bool Likees { get; set; } = false;
         public bool Likers { get; set; } = false;
+
+        public int MovieId { get; set; }
+
+        public int MovieCategoryId { get; set; }
         
         
     }

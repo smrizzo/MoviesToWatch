@@ -30,6 +30,54 @@ namespace DatingApp.API.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("DatingApp.API.Models.Movie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Homepage");
+
+                    b.Property<int>("MovieCategoryId");
+
+                    b.Property<string>("Overview");
+
+                    b.Property<string>("Poster_path");
+
+                    b.Property<string>("Release_date");
+
+                    b.Property<int>("Runtime");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("Year");
+
+                    b.Property<string>("imdb_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieCategoryId");
+
+                    b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.MovieCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MovieCategories");
+                });
+
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -113,6 +161,22 @@ namespace DatingApp.API.Migrations
                         .WithMany("Likees")
                         .HasForeignKey("LikerId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.Movie", b =>
+                {
+                    b.HasOne("DatingApp.API.Models.MovieCategory", "MovieCategories")
+                        .WithMany("Movies")
+                        .HasForeignKey("MovieCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.MovieCategory", b =>
+                {
+                    b.HasOne("DatingApp.API.Models.User", "User")
+                        .WithMany("MovieCategories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
