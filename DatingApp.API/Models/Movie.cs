@@ -11,7 +11,9 @@ namespace DatingApp.API.Models
         public string Release_date { get; set; }
         public int Runtime { get; set; }
         public string imdb_id { get; set; }
-        public MovieCategory MovieCategories { get; set; }
+        public int MovieId { get; set; }
+      
+        public MovieCategory MovieCategory { get; set; }
         public int MovieCategoryId { get; set; }
 
        

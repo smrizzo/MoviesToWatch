@@ -17,7 +17,7 @@ namespace DatingApp.API.Data
     }
     public void Add<T>(T entity) where T : class
     {
-      this._context.Add(entity);
+      _context.Add(entity);
     }
 
     public void Delete<T>(T entity) where T : class
@@ -27,7 +27,7 @@ namespace DatingApp.API.Data
 
     public async Task<MovieCategory> GetMovieCategory(int id)
     {
-      return await _context.MovieCategories.FirstOrDefaultAsync(u => u.Id == id);
+      return await _context.MovieCategories.Include(m => m.Movies).FirstOrDefaultAsync(u => u.Id == id);
     }
 
     public async Task<PagedList<MovieCategory>> GetCategories(UserParams userParams)
@@ -53,8 +53,8 @@ namespace DatingApp.API.Data
     }
 
     public async Task<User> GetUser(int id) {
-      return await _context.Users.Include(u => u.MovieCategories
-        .Where(c => c.UserId == id))
+      return await _context.Users
+        .Include(u => u.MovieCategories)
           .ThenInclude(u => u.Movies)
           .FirstOrDefaultAsync(u => u.Id == id);
     }

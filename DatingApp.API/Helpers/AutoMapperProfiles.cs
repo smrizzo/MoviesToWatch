@@ -23,6 +23,7 @@ namespace DatingApp.API.Helpers
                .ForMember(dest => dest.Age, opt => {
                   opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                });
+            
             CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<UserForUpdatesDto, User>();
             CreateMap<Photo, PhotoForReturnDto>();
@@ -31,6 +32,7 @@ namespace DatingApp.API.Helpers
 
             CreateMap<Movie, MovieForReturnDto>();
             CreateMap<MovieForCreationDto, Movie>();
+            CreateMap<Movie, MovieForCreationDto>();
             CreateMap<MovieForSearchById, Movie>();
             CreateMap<CategoryForCreationDto, MovieCategory>();
             CreateMap<MovieCategory, CategoryForReturnDto>();

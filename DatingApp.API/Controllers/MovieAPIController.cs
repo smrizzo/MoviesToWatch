@@ -23,9 +23,7 @@ namespace DatingApp.API.Controllers
     public async Task<IActionResult> GetMoviesFromOmdb(string name) {
       
       var client = _clientFactory.CreateClient();
-      // http://image.tmdb.org/t/p/w500/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg
-      // https://api.themoviedb.org/3/search/movie?api_key=3650d864e76977abd467fdc82290d485&query=captain marvel
-      
+    
       // var response = await client.GetAsync($"http://www.omdbapi.com/?s={name}&apikey=948cea94");
       var response = await client.GetAsync($"https://api.themoviedb.org/3/search/movie?api_key=3650d864e76977abd467fdc82290d485&query={name}");
       

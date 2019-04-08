@@ -10,6 +10,7 @@ namespace DatingApp.API.Dtos
         public string Year { get; set; }
         public string Release_date { get; set; }
         public int Runtime { get; set; }
+        public string imdb_id { get; set; }
         
     }
 }

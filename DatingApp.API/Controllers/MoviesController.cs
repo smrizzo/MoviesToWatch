@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Security.Claims;
@@ -27,7 +28,21 @@ namespace DatingApp.API.Controllers
 
     }
 
-    [HttpGet("{id}", Name = "GetMovie")]
+    [HttpGet]
+    public async Task<IActionResult> GetMovieCategories([FromQuery]UserParams userParams) {
+      var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+      userParams.UserId = currentUserId;
+      Console.WriteLine("CURRENT USER ID" + currentUserId);
+      var movieCategories = await _repo.GetCategories(userParams);
+
+      var categoriesToReturn = _mapper.Map<IEnumerable<CategoryForListDto>>(movieCategories);
+      Response.AddPagination(movieCategories.CurrentPage, movieCategories.PageSize,
+      movieCategories.TotalCount, movieCategories.TotalPages);
+  
+      return Ok(categoriesToReturn);
+    }
+
+    [HttpGet("m={id}", Name = "GetMovie")]
     public async Task<IActionResult> GetMovie(int id)
     {
 
@@ -36,31 +51,15 @@ namespace DatingApp.API.Controllers
       return Ok(movie);
     }
 
-    [HttpGet("{id}", Name="GetMovieCategory")]
+    [HttpGet("c={id}", Name="GetMovieCategory")]
     public async Task<IActionResult> GetMovieCategory(int id) {
       var categoryFromRepo = await _repo.GetMovieCategory(id);
       var movieCategory = _mapper.Map<CategoryForReturnDto>(categoryFromRepo);
       return Ok(movieCategory);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetMovieCategories([FromQuery]UserParams userParams) {
-      var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-      var userFromRepo = await _repo.GetUser(currentUserId);
-      userParams.UserId = currentUserId;
-
-      var movieCategories = await _repo.GetCategories(userParams);
-
-      var categoriesToReturn = _mapper.Map<IEnumerable<CategoryForListDto>>(movieCategories);
-      Response.AddPagination(movieCategories.CurrentPage, movieCategories.PageSize,
-       movieCategories.TotalCount, movieCategories.TotalPages);
-  
-      return Ok(categoriesToReturn);
-    }
-
-    
-    [HttpPost("c={categoryId}&m={movieId}")]
-    public async Task<IActionResult> AddMovieForCategory(int userId, int categoryId, int movieId)
+    [HttpPost("c={categoryId}/m={movieId}")]
+    public async Task<IActionResult> AddMovieForCategory(int userId, int categoryId, string movieId)
     {
       if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
           return Unauthorized();
@@ -71,15 +70,20 @@ namespace DatingApp.API.Controllers
       
       if (response.IsSuccessStatusCode){
         var movieFromMovieDb = await response.Content.ReadAsAsync<MovieForCreationDto>();
-        var movie = _mapper.Map<Movie>(movieFromMovieDb);
+        Console.WriteLine("MOVIE FROM MOVIE DB ID:---------- " + movieFromMovieDb.imdb_id);
         var categoryFromRepo = await _repo.GetMovieCategory(categoryId);
+        Console.WriteLine("CATEGORY ID--------------" + categoryId);
+        Console.WriteLine("CATEGORY FROM REPO-------" + categoryFromRepo.Title);
 
+        var movie = _mapper.Map<Movie>(movieFromMovieDb);
+        Console.WriteLine("MOVIE FROM  MOVIEID:-------------- " + movie.Id);
+      
         //adds movie to category in database
         categoryFromRepo.Movies.Add(movie);
 
         if (await _repo.SaveAll()) {
-                var movieToReturn = _mapper.Map<MovieForReturnDto>(movie);
-                return CreatedAtRoute("GetMovie", new { id = movie.Id }, movieToReturn);
+          var movieToReturn = _mapper.Map<MovieForReturnDto>(movie);
+          return CreatedAtRoute("GetMovie", new { id = movie.Id }, movieToReturn);
         }
         return BadRequest("Could not add the movie");
 
@@ -88,12 +92,13 @@ namespace DatingApp.API.Controllers
       }
     }
 
-    [HttpPost]
-    public async Task<IActionResult> AddCategoryForUser(int userId, [FromForm]CategoryForCreationDto categoryForCreationDto) {
+    [HttpPost("addCategory")]
+    public async Task<IActionResult> AddCategoryForUser(int userId, CategoryForCreationDto categoryForCreationDto) {
       if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
           return Unauthorized();
       }
-
+      Console.WriteLine("userID------------------------" + userId);
+      Console.WriteLine("CATEGORY FOR CREATION DTO-----" + categoryForCreationDto.Title + "----" + categoryForCreationDto.Description);
       var userFromRepo = await _repo.GetUser(userId);
       var movieCategory = _mapper.Map<MovieCategory>(categoryForCreationDto);
       userFromRepo.MovieCategories.Add(movieCategory);

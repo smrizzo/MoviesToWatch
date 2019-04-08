@@ -22,8 +22,8 @@ namespace DatingApp.API.Controllers
       _repo = repo;
 
     }
-    [HttpGet("{id}", Name = "GetUser")]
-    public async Task<IActionResult> GetUser(int id)
+    [HttpGet("{id}", Name = "GetMovieUser")]
+    public async Task<IActionResult> GetMovieUser(int id)
     {
        var user = await _repo.GetUser(id);
        var userToReturn = _mapper.Map<UserForDetailedDto>(user);
