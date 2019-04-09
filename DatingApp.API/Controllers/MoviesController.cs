@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -8,10 +9,12 @@ using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Helpers;
 using DatingApp.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Controllers
 {
+  [Authorize]
   [Route("api/users/{userId}/movies")]
   [ApiController]
   public class MoviesController : ControllerBase
@@ -32,7 +35,6 @@ namespace DatingApp.API.Controllers
     public async Task<IActionResult> GetMovieCategories([FromQuery]UserParams userParams) {
       var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
       userParams.UserId = currentUserId;
-      Console.WriteLine("CURRENT USER ID" + currentUserId);
       var movieCategories = await _repo.GetCategories(userParams);
 
       var categoriesToReturn = _mapper.Map<IEnumerable<CategoryForListDto>>(movieCategories);
@@ -70,15 +72,9 @@ namespace DatingApp.API.Controllers
       
       if (response.IsSuccessStatusCode){
         var movieFromMovieDb = await response.Content.ReadAsAsync<MovieForCreationDto>();
-        Console.WriteLine("MOVIE FROM MOVIE DB ID:---------- " + movieFromMovieDb.imdb_id);
         var categoryFromRepo = await _repo.GetMovieCategory(categoryId);
-        Console.WriteLine("CATEGORY ID--------------" + categoryId);
-        Console.WriteLine("CATEGORY FROM REPO-------" + categoryFromRepo.Title);
-
+        
         var movie = _mapper.Map<Movie>(movieFromMovieDb);
-        Console.WriteLine("MOVIE FROM  MOVIEID:-------------- " + movie.Id);
-      
-        //adds movie to category in database
         categoryFromRepo.Movies.Add(movie);
 
         if (await _repo.SaveAll()) {
@@ -97,8 +93,7 @@ namespace DatingApp.API.Controllers
       if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
           return Unauthorized();
       }
-      Console.WriteLine("userID------------------------" + userId);
-      Console.WriteLine("CATEGORY FOR CREATION DTO-----" + categoryForCreationDto.Title + "----" + categoryForCreationDto.Description);
+  
       var userFromRepo = await _repo.GetUser(userId);
       var movieCategory = _mapper.Map<MovieCategory>(categoryForCreationDto);
       userFromRepo.MovieCategories.Add(movieCategory);
@@ -110,6 +105,66 @@ namespace DatingApp.API.Controllers
       return BadRequest("Could not add the category");
 
     }
+
+    [HttpDelete("c={categoryId}/m={id}")]
+    public async Task<IActionResult> DeleteMovie(int userId, int categoryId, int id) {
+      if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+        return Unauthorized();
+      }
+
+      var movieCategoryFromRepo = await _repo.GetMovieCategory(categoryId);
+      if(!movieCategoryFromRepo.Movies.Any(m => m.Id == id)) {
+        return Unauthorized();
+      }
+
+      var movieFromRepo = await _repo.GetMovie(id);
+      _repo.Delete(movieFromRepo);
+      if (await _repo.SaveAll())
+            return Ok();
+
+        return BadRequest("Failed to delete the movie");
+    }
+
+    [HttpDelete("c={id}")]
+    public async Task<IActionResult> DeleteMovieCategory(int userId, int id) {
+      if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+        return Unauthorized();
+      }
+
+      var user = await _repo.GetUser(userId);
+      if(!user.MovieCategories.Any(c => c.Id == id)) {
+        return Unauthorized();
+      }
+
+      var movieCategoryFromRepo = await _repo.GetMovieCategory(id);
+      _repo.Delete(movieCategoryFromRepo);
+      if(await _repo.SaveAll()) {
+        return Ok();
+      }
+
+      return BadRequest("Failed to delete category");
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateMovieCategory(int userId, int id, CategoryForUpdateDto categoryForUpdateDto) {
+      if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) {
+        return Unauthorized();
+      }
+
+      var movieCategoryFromRepo = await _repo.GetMovieCategory(id);
+      _mapper.Map(categoryForUpdateDto, movieCategoryFromRepo);
+
+      if(await _repo.SaveAll()) {
+        return NoContent();
+      }
+      throw new Exception($"Updating category with {id} failed on save");
+
+
+
+
+    }
+
+    
 
 
 

@@ -129,6 +129,7 @@ namespace DatingApp.API.Migrations
                     Release_date = table.Column<string>(nullable: true),
                     Runtime = table.Column<int>(nullable: false),
                     imdb_id = table.Column<string>(nullable: true),
+                    MovieId = table.Column<int>(nullable: false),
                     MovieCategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

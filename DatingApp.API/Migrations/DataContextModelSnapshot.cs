@@ -39,6 +39,8 @@ namespace DatingApp.API.Migrations
 
                     b.Property<int>("MovieCategoryId");
 
+                    b.Property<int>("MovieId");
+
                     b.Property<string>("Overview");
 
                     b.Property<string>("Poster_path");
