@@ -158,22 +158,7 @@ namespace DatingApp.API.Controllers
         return NoContent();
       }
       throw new Exception($"Updating category with {id} failed on save");
-
-
-
-
     }
-
-    
-
-
-
-
-
-
-
-
-
 
   }
 }
