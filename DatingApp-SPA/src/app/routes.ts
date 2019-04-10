@@ -12,6 +12,7 @@ import { MemberEditResolver } from './_resolver/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { ListResolver } from './_resolver/lists.resolver';
 import { MovieSearchComponent } from './movie/movie-search/movie-search.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 // Using AuthGuard to protect routes so cannot enter directly in browser
 // will first need to be logged into app
@@ -31,7 +32,8 @@ export const appRoutes: Routes = [
           resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
         { path: 'messages', component: MessagesComponent},
         { path: 'lists', component: ListsComponent, resolve: {users: ListResolver}},
-        { path: 'movies', component: MovieSearchComponent}
+        { path: 'movies', component: MovieSearchComponent},
+        { path: 'categories', component: CategoriesComponent}
       ]
    },
    { path: '**', redirectTo: '', pathMatch: 'full'}

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { OmdbMovie } from '../_models/omdbMovie';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { MovieDb } from '../_models/movieDb';
+import { PaginatedResult } from '../_models/pagination';
+import { Movie } from '../_models/movie';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,32 @@ baseUrl = 'http://localhost:5000/api/search/movies';
 // omdbMovies: OmdbMovie[];
 movieDb: MovieDb[];
 constructor(private http: HttpClient) { }
+
+getMovies(userId: number, page?, itemsPerPage?, movieParams?, userParams?): Observable<PaginatedResult<Movie[]>> {
+  const paginatedResult: PaginatedResult<Movie[]> = new PaginatedResult<Movie[]>();
+  let params = new HttpParams();
+
+  if (page != null && itemsPerPage != null) {
+    params = params.append('pageNumber', page);
+    params = params.append('pageSize', itemsPerPage);
+  }
+
+  if (movieParams != null) {
+    params = params.append('minAge', movieParams.minAge);
+    params = params.append('maxAge', movieParams.maxAge);
+  }
+
+  return this.http.get<Movie[]>(this.baseUrl + 'users/' + userId + '/movies', { observe: 'response', params })
+    .pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
+}
 
 searchMovies(term: string): Observable<MovieDb[]> {
   if (!term.trim()) {

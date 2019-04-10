@@ -1,4 +1,6 @@
 import { Photo } from './photo';
+import { MovieCategory } from './movieCategory';
+import { Movie } from './movie';
 
 export interface User {
    id: number;
@@ -15,4 +17,5 @@ export interface User {
    introduction?: string;
    lookingFor?: string;
    photos?: Photo[];
+   movieCategories?: MovieCategory[];
 }

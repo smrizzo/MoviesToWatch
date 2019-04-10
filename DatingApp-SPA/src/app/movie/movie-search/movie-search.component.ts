@@ -16,10 +16,10 @@ export class MovieSearchComponent implements OnInit {
   movieDbMovies: Observable<MovieDb[]>;
   // omdbMovies: OmdbMovie[];
   private searchTerms = new Subject<string>();
-  
+
   constructor(private movieService: MovieService, private alertify: AlertifyService) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.movieDbMovies = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),

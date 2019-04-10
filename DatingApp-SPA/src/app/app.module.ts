@@ -34,6 +34,7 @@ import { ListResolver } from './_resolver/lists.resolver';
 import { MovieService } from './_services/movie.service';
 import { MovieSearchComponent } from './movie/movie-search/movie-search.component';
 import { MovieCardComponent } from './movie/movie-card/movie-card.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 
 
@@ -56,7 +57,8 @@ export function tokenGetter() {
       PhotoEditorComponent,
       TimeAgoPipe,
       MovieSearchComponent,
-      MovieCardComponent
+      MovieCardComponent,
+      CategoriesComponent
    ],
    imports: [
       BrowserModule,
@@ -72,28 +74,28 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
-         config: {
-            tokenGetter,
-            whitelistedDomains: ['localhost:5000'],
-            blacklistedRoutes: ['localhost:5000/api/auth']
-         }
-      })
-   ],
-   providers: [
-      AuthService,
-      ErrorInterceptorProvider,
-      AlertifyService,
-      AuthGuard,
-      UserService,
-      MemberDetailResolver,
-      MemberListResolver,
-      MemberEditResolver,
-      PreventUnsavedChanges,
-      ListResolver,
-      MovieService
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+        config: {
+           tokenGetter,
+           whitelistedDomains: ['localhost:5000'],
+           blacklistedRoutes: ['localhost:5000/api/auth']
+        }
+     })
+  ],
+  providers: [
+     AuthService,
+     ErrorInterceptorProvider,
+     AlertifyService,
+     AuthGuard,
+     UserService,
+     MemberDetailResolver,
+     MemberListResolver,
+     MemberEditResolver,
+     PreventUnsavedChanges,
+     ListResolver,
+     MovieService
+  ],
+  bootstrap: [
+     AppComponent
+  ]
 })
 export class AppModule { }
