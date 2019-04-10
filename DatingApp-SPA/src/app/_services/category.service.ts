@@ -23,11 +23,6 @@ export class CategoryService {
       params = params.append('pageSize', itemsPerPage);
     }
 
-    if (categoryParams != null) {
-      params = params.append('minAge', categoryParams.minAge);
-      params = params.append('maxAge', categoryParams.maxAge);
-    }
-
     return this.http.get<MovieCategory[]>(this.baseUrl + 'users/' + userId + '/movies', { observe: 'response', params })
       .pipe(
         map(response => {

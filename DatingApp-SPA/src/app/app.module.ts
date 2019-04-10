@@ -34,7 +34,10 @@ import { ListResolver } from './_resolver/lists.resolver';
 import { MovieService } from './_services/movie.service';
 import { MovieSearchComponent } from './movie/movie-search/movie-search.component';
 import { MovieCardComponent } from './movie/movie-card/movie-card.component';
-import { CategoriesComponent } from './categories/categories.component';
+import { CategoryListComponent } from './categories/category-list/category-list.component';
+import { CategoryService } from './_services/category.service';
+import { CategoryCardComponent } from './categories/category-card/category-card.component';
+import { CategoryListResolver } from './_resolver/category-list.resolver';
 
 
 
@@ -58,7 +61,8 @@ export function tokenGetter() {
       TimeAgoPipe,
       MovieSearchComponent,
       MovieCardComponent,
-      CategoriesComponent
+      CategoryListComponent,
+      CategoryCardComponent
    ],
    imports: [
       BrowserModule,
@@ -92,7 +96,9 @@ export function tokenGetter() {
      MemberEditResolver,
      PreventUnsavedChanges,
      ListResolver,
-     MovieService
+     MovieService,
+     CategoryService,
+     CategoryListResolver
   ],
   bootstrap: [
      AppComponent
