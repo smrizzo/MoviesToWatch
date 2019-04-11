@@ -14,6 +14,8 @@ import { ListResolver } from './_resolver/lists.resolver';
 import { MovieSearchComponent } from './movie/movie-search/movie-search.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CategoryListResolver } from './_resolver/category-list.resolver';
+import { CategoryDetailComponent } from './categories/category-detail/category-detail.component';
+import { CategoryFormComponent } from './categories/category-form/category-form.component';
 
 
 // Using AuthGuard to protect routes so cannot enter directly in browser
@@ -36,7 +38,9 @@ export const appRoutes: Routes = [
           resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
         { path: 'messages', component: MessagesComponent},
         { path: 'lists', component: ListsComponent, resolve: {users: ListResolver}},
-        { path: 'movies', component: MovieSearchComponent}
+        { path: 'movies', component: MovieSearchComponent},
+        { path: 'categories/:id', component: CategoryDetailComponent },
+        { path: 'category/form', component: CategoryFormComponent }
       ]
    },
    { path: '**', redirectTo: '', pathMatch: 'full'}

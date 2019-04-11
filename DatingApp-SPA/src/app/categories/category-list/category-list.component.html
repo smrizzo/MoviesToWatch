@@ -1,9 +1,42 @@
-<div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-          <div *ngFor='let category of categories' class="col-lg-2 col-md-3 col-sm-6">
-              <app-category-card [category]="category"></app-category-card>
-           </div>
+
+<div class="container-fluid mt-5">
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadCategories()" novalidate>
+    <div class="col">
+      <div class="btn-group float-left">
+        <button type="button" name="addCategory" class="btn btn-primary" [routerLink]="['/category/form']">Add Category</button>
       </div>
     </div>
+    <div class="col">
+      <div class="btn-group float-right">
+        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="userParams.orderBy" 
+         btnRadio="lastActie">Highest Rated</button>
+        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="userParams.orderBy" 
+          btnRadio="created">Runtime</button>
+      </div>
+    </div>
+  </form>
+  <br>
+  
+  <div class="row justify-content-center">
+    <div *ngFor='let category of categories' class="col-lg-2 col-md-3 col-sm-6">
+        <app-category-card [category]="category"></app-category-card>
+    </div>
   </div>
+
+  
+
+</div>
+
+<div class="d-flex justify-content-center">
+  <pagination [boundaryLinks]="true" 
+              [totalItems]="pagination.totalItems"
+              [itemsPerPage]="pagination.itemsPerPage"
+              [(ngModel)]="pagination.currentPage"
+              (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+
+  </pagination>
+</div>
+
+
+  <!-- <div class="album py-5 bg-light"></div> -->

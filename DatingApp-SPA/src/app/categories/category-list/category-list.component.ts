@@ -35,7 +35,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   loadCategories() {
-    this.categoryService.getCategories(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
+    this.categoryService.getCategories(this.authService.decodedToken.nameid, this.pagination.currentPage, this.pagination.itemsPerPage)
      .subscribe((res: PaginatedResult<MovieCategory[]>) => {
        this.categories = res.result;
        this.pagination = res.pagination;

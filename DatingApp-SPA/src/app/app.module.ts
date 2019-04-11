@@ -38,6 +38,9 @@ import { CategoryListComponent } from './categories/category-list/category-list.
 import { CategoryService } from './_services/category.service';
 import { CategoryCardComponent } from './categories/category-card/category-card.component';
 import { CategoryListResolver } from './_resolver/category-list.resolver';
+import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
+import { CategoryDetailComponent } from './categories/category-detail/category-detail.component';
+import { CategoryFormComponent } from './categories/category-form/category-form.component';
 
 
 
@@ -62,7 +65,10 @@ export function tokenGetter() {
       MovieSearchComponent,
       MovieCardComponent,
       CategoryListComponent,
-      CategoryCardComponent
+      CategoryCardComponent,
+      CategoryEditComponent,
+      CategoryDetailComponent,
+      CategoryFormComponent
    ],
    imports: [
       BrowserModule,

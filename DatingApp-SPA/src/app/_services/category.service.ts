@@ -14,7 +14,8 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(userId: number, page?, itemsPerPage?, categoryParams?, userParams?): Observable<PaginatedResult<MovieCategory[]>> {
+  getCategories(userId: number, page?, itemsPerPage?, categoryParams?, userParams?):
+    Observable<PaginatedResult<MovieCategory[]>> {
     const paginatedResult: PaginatedResult<MovieCategory[]> = new PaginatedResult<MovieCategory[]>();
     let params = new HttpParams();
 
@@ -40,15 +41,15 @@ export class CategoryService {
   }
 
   updateCategory(categoryId: number, userId: number, movieCategory: MovieCategory) {
-    return this.http.put(this.baseUrl + '/users' + userId + '/movies/' + categoryId, movieCategory);
+    return this.http.put(this.baseUrl + 'users/' + userId + '/movies/' + categoryId, movieCategory);
   }
 
-  addCategory(userId: number, movieCategory: MovieCategory) {
-    return this.http.post(this.baseUrl + '/users' + userId + '/movies/addCategory', movieCategory);
+  addCategory(userId: number, movieCategory: any) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/movies/addCategory', movieCategory);
   }
 
   deleteCategory(userId: number, categoryId: number) {
-    return this.http.delete(this.baseUrl + '/users' + userId + '/movies' + '/c=' + categoryId);
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/movies' + '/c=' + categoryId);
   }
 
 

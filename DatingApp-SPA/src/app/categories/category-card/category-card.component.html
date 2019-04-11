@@ -1,6 +1,6 @@
 <div class="card mb-4">
     <div class="card-img-wrapper">
-       <img class="card-img-top" src="{{'../../../assets/user.png'}}">
+       <img class="card-img-top" src="{{category.url || '../../../assets/user.png'}}">
        <ul class="list-inline member-icons animate text-center">
           <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-user"></i></button></li>
           <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-heart"></i></button></li>
@@ -10,9 +10,7 @@
     <div class="card-body p-1">
        <h6 class="card-title text-center mb-1"><i class="fa fa-user"></i>
           {{category.title}}
+          {{category.url}}
        </h6>
-       <p class="card-text text-muted text-center">
-          {{category.description}}
-       </p>
     </div>
  </div>

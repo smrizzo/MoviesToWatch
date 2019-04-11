@@ -25,9 +25,10 @@ namespace DatingApp.API.Data
        _context.Remove(entity);
     }
 
+    
     public async Task<MovieCategory> GetMovieCategory(int id)
     {
-      return await _context.MovieCategories.Include(m => m.Movies).FirstOrDefaultAsync(u => u.Id == id);
+      return await _context.MovieCategories.Include(m => m.Movies).Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
     }
 
     public async Task<PagedList<MovieCategory>> GetCategories(UserParams userParams)

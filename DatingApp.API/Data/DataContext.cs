@@ -13,8 +13,8 @@ namespace DatingApp.API.Data
          //pluralize the name from entities and values will be the name of the table SQL
         public DbSet<Value> Values { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Photo> Photos { get; set; }
         public DbSet<MovieCategory> MovieCategories { get; set; }
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Like> Likes { get; set; }
         
@@ -37,7 +37,7 @@ namespace DatingApp.API.Data
             .WithMany(u => u.Likees)
             .HasForeignKey(u => u.LikerId)
             .OnDelete(DeleteBehavior.Restrict);
-          
+
           // builder.Entity<Category>()
           //   .HasOne(u => u.User)
           //   .WithMany(u => u.Categories)
