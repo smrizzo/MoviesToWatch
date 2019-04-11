@@ -11,6 +11,5 @@ namespace DatingApp.API.Models
         public User User { get; set; }
         public int UserId { get; set; }
         public ICollection<Movie> Movies { get; set; }
-        public ICollection<Photo> Photos { get; set; }
     }
 }

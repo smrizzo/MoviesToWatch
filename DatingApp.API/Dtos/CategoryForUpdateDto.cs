@@ -6,6 +6,6 @@ namespace DatingApp.API.Dtos
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public Photo photo { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190411053440_AddedPhotoToCategory")]
-    partial class AddedPhotoToCategory
+    [Migration("20190411175055_MovieAppInitial")]
+    partial class MovieAppInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,8 +95,6 @@ namespace DatingApp.API.Migrations
 
                     b.Property<bool>("IsMain");
 
-                    b.Property<int>("MovieCategoryId");
-
                     b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
@@ -104,8 +102,6 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MovieCategoryId");
 
                     b.HasIndex("UserId");
 
@@ -191,11 +187,6 @@ namespace DatingApp.API.Migrations
 
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
-                    b.HasOne("DatingApp.API.Models.MovieCategory", "MovieCategory")
-                        .WithMany()
-                        .HasForeignKey("MovieCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DatingApp.API.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")

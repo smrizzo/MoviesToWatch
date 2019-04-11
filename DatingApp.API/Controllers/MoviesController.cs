@@ -54,6 +54,13 @@ namespace DatingApp.API.Controllers
       var movieCategories = await _repo.GetCategories(userParams);
 
       var categoriesToReturn = _mapper.Map<IEnumerable<CategoryForListDto>>(movieCategories);
+      Console.WriteLine("---------------------------------------");
+      Console.WriteLine("---------------------------------------");
+      Console.WriteLine("---------------------------------------");
+      Console.WriteLine("---------------------------------------");
+      foreach(CategoryForListDto category in categoriesToReturn) {
+        Console.WriteLine("CHECKING ITEMS IN LIST URL-----::: " + category.Url);
+      }
       Response.AddPagination(movieCategories.CurrentPage, movieCategories.PageSize,
       movieCategories.TotalCount, movieCategories.TotalPages);
 
@@ -121,9 +128,7 @@ namespace DatingApp.API.Controllers
       }
 
       var userFromRepo = await _repo.GetUser(userId);
-      var photoForCreationDto = new PhotoForCreationDto();
       
-
       var file = categoryForCreationDto.File;
       var uploadResult = new ImageUploadResult();
 
@@ -143,26 +148,14 @@ namespace DatingApp.API.Controllers
         return BadRequest("Could not add the category with photo");
       }
       categoryForCreationDto.Url = uploadResult.Uri.ToString();
-      photoForCreationDto.Url = uploadResult.Uri.ToString();
-      photoForCreationDto.PublicId = uploadResult.PublicId;
-
-      var photo = _mapper.Map<Photo>(photoForCreationDto);
       var movieCategory = _mapper.Map<MovieCategory>(categoryForCreationDto);
 
       userFromRepo.MovieCategories.Add(movieCategory);
 
       if (await _repo.SaveAll())
       {
-        var categoryFromRepo = await _repo.GetMovieCategory(movieCategory.Id);
-        photo.UserId = userId;
-        categoryFromRepo.Photos.Add(photo);
-        if (await _repo.SaveAll()) {
-          var categoryToReturn = _mapper.Map<CategoryForReturnDto>(movieCategory);
-          Console.WriteLine("CHECKING URL FOR CATEGORY TO RETURN----------" + categoryToReturn.Url);
-          return CreatedAtRoute("GetMovieCategory", new { id = movieCategory.Id }, categoryToReturn);
-        } else {
-          return BadRequest("Could not add photo to category");
-        }
+        var categoryToReturn = _mapper.Map<CategoryForReturnDto>(movieCategory);
+        return CreatedAtRoute("GetMovieCategory", new { id = movieCategory.Id }, categoryToReturn);
         
       }
       return BadRequest("Could not add the category");
