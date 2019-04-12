@@ -22,6 +22,7 @@ namespace DatingApp.API.Controllers
       _repo = repo;
 
     }
+    
     [HttpGet("{id}", Name = "GetMovieUser")]
     public async Task<IActionResult> GetMovieUser(int id)
     {

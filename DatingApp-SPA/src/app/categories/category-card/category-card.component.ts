@@ -9,6 +9,7 @@ import { MovieCategory } from 'src/app/_models/movieCategory';
 export class CategoryCardComponent implements OnInit {
 
   @Input() category: MovieCategory;
+
   constructor() { }
 
   ngOnInit() {

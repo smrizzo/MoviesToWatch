@@ -54,17 +54,23 @@ namespace DatingApp.API.Controllers
       var movieCategories = await _repo.GetCategories(userParams);
 
       var categoriesToReturn = _mapper.Map<IEnumerable<CategoryForListDto>>(movieCategories);
-      Console.WriteLine("---------------------------------------");
-      Console.WriteLine("---------------------------------------");
-      Console.WriteLine("---------------------------------------");
-      Console.WriteLine("---------------------------------------");
-      foreach(CategoryForListDto category in categoriesToReturn) {
-        Console.WriteLine("CHECKING ITEMS IN LIST URL-----::: " + category.Url);
-      }
       Response.AddPagination(movieCategories.CurrentPage, movieCategories.PageSize,
       movieCategories.TotalCount, movieCategories.TotalPages);
 
       return Ok(categoriesToReturn);
+    }
+
+    [HttpGet("category/{id}")]
+    public async Task<IActionResult> GetMovies(int id, [FromQuery]UserParams userParams) {
+      userParams.MovieCategoryId = id;
+      var moviesFromCategory = await _repo.GetMovies(userParams);
+
+      var moviesToReturn = _mapper.Map<IEnumerable<MovieForListDto>>(moviesFromCategory);
+      Response.AddPagination(moviesFromCategory.CurrentPage, moviesFromCategory.PageSize,
+      moviesFromCategory.TotalCount, moviesFromCategory.TotalPages);
+
+      return Ok(moviesToReturn);
+      
     }
 
     [HttpGet("m={id}", Name = "GetMovie")]
@@ -139,7 +145,7 @@ namespace DatingApp.API.Controllers
           var uploadParams = new ImageUploadParams()
           {
             File = new FileDescription(file.Name, stream),
-            Transformation = new Transformation().Width(500).Height(500).Crop("fill")
+            Transformation = new Transformation().Width(248).Height(368)
           };
 
           uploadResult = _cloudinary.Upload(uploadParams);

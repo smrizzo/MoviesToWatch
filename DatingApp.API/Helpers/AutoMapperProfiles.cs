@@ -10,34 +10,34 @@ namespace DatingApp.API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForListDto>()
-               .ForMember(dest => dest.PhotoUrl, opt => {
-                  opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
-               })
                .ForMember(dest => dest.Age, opt => {
                   opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                });
             CreateMap<User, UserForDetailedDto>()
-               .ForMember(dest => dest.PhotoUrl, opt => {
-                  opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
-               })
                .ForMember(dest => dest.Age, opt => {
                   opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                });
             
-            CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<UserForRegisterDto, User>();
             CreateMap<UserForUpdatesDto, User>();
+
+            //mappers for photos
+            CreateMap<Photo, PhotosForDetailedDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
-            CreateMap<UserForRegisterDto, User>();
-
+            
+            //mappers for categories
             CreateMap<CategoryForUpdateDto, MovieCategory>();
+            CreateMap<CategoryForCreationDto, MovieCategory>();
+            CreateMap<MovieCategory, CategoryForReturnDto>();
+            CreateMap<MovieCategory, CategoryForListDto>();
+
+            //mappers for movies
             CreateMap<Movie, MovieForReturnDto>();
             CreateMap<MovieForCreationDto, Movie>();
             CreateMap<Movie, MovieForCreationDto>();
             CreateMap<MovieForSearchById, Movie>();
-            CreateMap<CategoryForCreationDto, MovieCategory>();
-            CreateMap<MovieCategory, CategoryForReturnDto>();
-            CreateMap<MovieCategory, CategoryForListDto>();
+            CreateMap<Movie, MovieForListDto>();
              
         }
     }

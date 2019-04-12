@@ -14,8 +14,9 @@ import { Router } from '@angular/router';
 })
 export class CategoryFormComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
-  category: any = {};
+  category = new FormData();
   photoUrl: string;
+  selectedFile: File;
   title: string;
   description: string;
 
@@ -28,8 +29,9 @@ export class CategoryFormComponent implements OnInit {
   }
 
   addCategory() {
-    this.category.title = this.title;
-    this.category.description = this.description;
+    this.category.append('Title', this.title);
+    this.category.append('Description', this.description);
+    this.category.append('File', this.selectedFile, this.selectedFile.name);
     this.categoryService.addCategory(this.authService.decodedToken.nameid, this.category).subscribe(next => {
       this.alertify.success('Category was created successfully');
       this.editForm.reset(this.category);
@@ -40,4 +42,7 @@ export class CategoryFormComponent implements OnInit {
     });
   }
 
+  onSelectedFile(event) {
+    this.selectedFile = event.target.files[0];
+  }
 }

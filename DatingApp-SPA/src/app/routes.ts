@@ -16,6 +16,8 @@ import { CategoryListComponent } from './categories/category-list/category-list.
 import { CategoryListResolver } from './_resolver/category-list.resolver';
 import { CategoryDetailComponent } from './categories/category-detail/category-detail.component';
 import { CategoryFormComponent } from './categories/category-form/category-form.component';
+import { MovieListComponent } from './movie/movie-list/movie-list.component';
+import { MovieListResolver } from './_resolver/movie-list.resolver';
 
 
 // Using AuthGuard to protect routes so cannot enter directly in browser
@@ -30,14 +32,8 @@ export const appRoutes: Routes = [
       children: [
         { path: 'categories', component: CategoryListComponent,
           resolve: {categories: CategoryListResolver}},
-        { path: 'members', component: MemberListComponent,
-          resolve: {users: MemberListResolver}},
-        { path: 'members/:id', component: MemberDetailComponent,
-          resolve: {user: MemberDetailResolver}},
-        { path: 'member/edit', component: MemberEditComponent,
-          resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
-        { path: 'messages', component: MessagesComponent},
-        { path: 'lists', component: ListsComponent, resolve: {users: ListResolver}},
+        { path: 'movies/:id', component: MovieListComponent,
+          resolve: { movies: MovieListResolver }},
         { path: 'movies', component: MovieSearchComponent},
         { path: 'categories/:id', component: CategoryDetailComponent },
         { path: 'category/form', component: CategoryFormComponent }
@@ -45,3 +41,12 @@ export const appRoutes: Routes = [
    },
    { path: '**', redirectTo: '', pathMatch: 'full'}
 ];
+
+// { path: 'members', component: MemberListComponent,
+//           resolve: {users: MemberListResolver}},
+//         { path: 'members/:id', component: MemberDetailComponent,
+//           resolve: {user: MemberDetailResolver}},
+//         { path: 'member/edit', component: MemberEditComponent,
+//           resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges]},
+//         { path: 'messages', component: MessagesComponent},
+//         { path: 'lists', component: ListsComponent, resolve: {users: ListResolver}},

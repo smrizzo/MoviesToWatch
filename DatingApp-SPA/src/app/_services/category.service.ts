@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { MovieCategory } from '../_models/movieCategory';
 import { PaginatedResult } from '../_models/pagination';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,8 +11,14 @@ import { map } from 'rxjs/operators';
 })
 export class CategoryService {
  baseUrl = environment.apiUrl;
+ categoryId = new BehaviorSubject<number>(0);
 
   constructor(private http: HttpClient) { }
+
+  changeCategoryId(categoryId: number) {
+    // this.photoUrl.next(photoUrl);
+    this.categoryId.next(categoryId);
+  }
 
   getCategories(userId: number, page?, itemsPerPage?, categoryParams?, userParams?):
     Observable<PaginatedResult<MovieCategory[]>> {

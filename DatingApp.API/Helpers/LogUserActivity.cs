@@ -14,9 +14,9 @@ namespace DatingApp.API.Helpers
       var resultContext = await next();
 
       var userId = int.Parse(resultContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-      var repo = resultContext.HttpContext.RequestServices.GetService<IDatingRepository>();
+      var repo = resultContext.HttpContext.RequestServices.GetService<IMovieRepository>();
       var user = await repo.GetUser(userId);
-      user.LastActie = DateTime.Now; 
+      user.LastActive = DateTime.Now; 
       await repo.SaveAll();
     }
   }

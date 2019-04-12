@@ -20,21 +20,13 @@ namespace DatingApp.API.Controllers
     }
 
     [HttpGet("s={name}")]
-    public async Task<IActionResult> GetMoviesFromOmdb(string name) {
+    public async Task<IActionResult> GetMoviesFromMovieDb(string name) {
       
       var client = _clientFactory.CreateClient();
     
       // var response = await client.GetAsync($"http://www.omdbapi.com/?s={name}&apikey=948cea94");
       var response = await client.GetAsync($"https://api.themoviedb.org/3/search/movie?api_key=3650d864e76977abd467fdc82290d485&query={name}");
       
-      // if (response.IsSuccessStatusCode)
-      // {
-      //     var movies = await response.Content.ReadAsAsync<SearchResults>();
-      //     return Ok(movies.Search);
-      // } else {
-      //   return BadRequest();
-      // }
-
       if (response.IsSuccessStatusCode) {
         var moviesDb = await response.Content.ReadAsAsync<MovieDbSearchResults>();
         foreach(MovieForMovieDbSearch movie in moviesDb.Results) {
@@ -46,7 +38,6 @@ namespace DatingApp.API.Controllers
       } else {
         return BadRequest();
       }
-      
       
     }
     [HttpGet("i={imdbId}")]

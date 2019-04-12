@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { OmdbMovie } from '../_models/omdbMovie';
 import { tap, map } from 'rxjs/operators';
 import { MovieDb } from '../_models/movieDb';
@@ -11,26 +11,30 @@ import { Movie } from '../_models/movie';
   providedIn: 'root'
 })
 export class MovieService {
-baseUrl = 'http://localhost:5000/api/search/movies';
+movieDbBaseUrl = 'http://localhost:5000/api/search/movies';
+baseUrl = 'http://localhost:5000/api/';
 // omdbMovies: OmdbMovie[];
 movieDb: MovieDb[];
+currentCategoryId: number;
+categoryId = new BehaviorSubject<number>(0);
 constructor(private http: HttpClient) { }
 
-getMovies(userId: number, page?, itemsPerPage?, movieParams?, userParams?): Observable<PaginatedResult<Movie[]>> {
+changeCategoryId(categoryId: number) {
+  // this.photoUrl.next(photoUrl);
+  this.categoryId.next(categoryId);
+}
+
+getMovies(userId: number, categoryId: number, page?, itemsPerPage?, movieParams?, userParams?): Observable<PaginatedResult<Movie[]>> {
   const paginatedResult: PaginatedResult<Movie[]> = new PaginatedResult<Movie[]>();
   let params = new HttpParams();
+  this.changeCategoryId(categoryId);
 
   if (page != null && itemsPerPage != null) {
     params = params.append('pageNumber', page);
     params = params.append('pageSize', itemsPerPage);
   }
 
-  if (movieParams != null) {
-    params = params.append('minAge', movieParams.minAge);
-    params = params.append('maxAge', movieParams.maxAge);
-  }
-
-  return this.http.get<Movie[]>(this.baseUrl + 'users/' + userId + '/movies', { observe: 'response', params })
+  return this.http.get<Movie[]>(this.baseUrl + 'users/' + userId + '/movies/category/' + categoryId, { observe: 'response', params })
     .pipe(
       map(response => {
         paginatedResult.result = response.body;
@@ -46,7 +50,7 @@ searchMovies(term: string): Observable<MovieDb[]> {
   if (!term.trim()) {
     return of([]);
   }
-  return this.http.get<MovieDb[]>(`${this.baseUrl}/s=${term}`);
+  return this.http.get<MovieDb[]>(`${this.movieDbBaseUrl}/s=${term}`);
 }
 
 // getMovie(): Observable<any> {

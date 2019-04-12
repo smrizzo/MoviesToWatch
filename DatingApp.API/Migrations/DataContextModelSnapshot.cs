@@ -17,19 +17,6 @@ namespace DatingApp.API.Migrations
                 .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("DatingApp.API.Models.Like", b =>
-                {
-                    b.Property<int>("LikerId");
-
-                    b.Property<int>("LikeeId");
-
-                    b.HasKey("LikerId", "LikeeId");
-
-                    b.HasIndex("LikeeId");
-
-                    b.ToTable("Likes");
-                });
-
             modelBuilder.Entity("DatingApp.API.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -89,19 +76,17 @@ namespace DatingApp.API.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<string>("Description");
-
                     b.Property<bool>("IsMain");
+
+                    b.Property<int>("MovieCategoryId");
 
                     b.Property<string>("PublicId");
 
                     b.Property<string>("Url");
 
-                    b.Property<int>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("MovieCategoryId");
 
                     b.ToTable("Photos");
                 });
@@ -121,15 +106,9 @@ namespace DatingApp.API.Migrations
 
                     b.Property<string>("Gender");
 
-                    b.Property<string>("Interest");
-
-                    b.Property<string>("Introduction");
-
                     b.Property<string>("KnownAs");
 
-                    b.Property<DateTime>("LastActie");
-
-                    b.Property<string>("LookingFor");
+                    b.Property<DateTime>("LastActive");
 
                     b.Property<byte[]>("PasswordHash");
 
@@ -140,31 +119,6 @@ namespace DatingApp.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("DatingApp.API.Models.Value", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Values");
-                });
-
-            modelBuilder.Entity("DatingApp.API.Models.Like", b =>
-                {
-                    b.HasOne("DatingApp.API.Models.User", "Likee")
-                        .WithMany("Likers")
-                        .HasForeignKey("LikeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("DatingApp.API.Models.User", "Liker")
-                        .WithMany("Likees")
-                        .HasForeignKey("LikerId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("DatingApp.API.Models.Movie", b =>
@@ -185,9 +139,9 @@ namespace DatingApp.API.Migrations
 
             modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
-                    b.HasOne("DatingApp.API.Models.User", "User")
+                    b.HasOne("DatingApp.API.Models.MovieCategory", "MovieCategory")
                         .WithMany("Photos")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("MovieCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

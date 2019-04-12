@@ -13,7 +13,7 @@ namespace DatingApp.API.Data
 
          Task<Movie> GetMovie(int id);
          Task<User> GetUser(int id);
-
+         Task<Photo> GetPhoto(int id);
          Task<MovieCategory> GetMovieCategory(int id);
 
          Task<PagedList<MovieCategory>> GetCategories(UserParams userParams);

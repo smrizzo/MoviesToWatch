@@ -41,6 +41,10 @@ import { CategoryListResolver } from './_resolver/category-list.resolver';
 import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
 import { CategoryDetailComponent } from './categories/category-detail/category-detail.component';
 import { CategoryFormComponent } from './categories/category-form/category-form.component';
+import { PhotoAddComponent } from './categories/photo-add/photo-add.component';
+import { MovieListComponent } from './movie/movie-list/movie-list.component';
+import { MovieListResolver } from './_resolver/movie-list.resolver';
+import { MovieDbCardComponent } from './movie/movie-db-card/movie-db-card.component';
 
 
 
@@ -68,7 +72,10 @@ export function tokenGetter() {
       CategoryCardComponent,
       CategoryEditComponent,
       CategoryDetailComponent,
-      CategoryFormComponent
+      CategoryFormComponent,
+      PhotoAddComponent,
+      MovieListComponent,
+      MovieDbCardComponent
    ],
    imports: [
       BrowserModule,
@@ -104,7 +111,8 @@ export function tokenGetter() {
      ListResolver,
      MovieService,
      CategoryService,
-     CategoryListResolver
+     CategoryListResolver,
+     MovieListResolver
   ],
   bootstrap: [
      AppComponent

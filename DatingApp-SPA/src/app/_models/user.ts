@@ -9,13 +9,8 @@ export interface User {
    age: number;
    gender: string;
    created: Date;
-   lastActie: Date;
-   photoUrl: string;
+   lastActive: Date;
    city: string;
    country: string;
-   interest?: string;
-   introduction?: string;
-   lookingFor?: string;
-   photos?: Photo[];
    movieCategories?: MovieCategory[];
 }

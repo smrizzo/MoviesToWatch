@@ -40,14 +40,14 @@ export class MemberDetailComponent implements OnInit {
   getImages() {
     const imageUrls = [];
 // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.user.photos.length; i++) {
-      imageUrls.push({
-        small: this.user.photos[i].url,
-        medium: this.user.photos[i].url,
-        large: this.user.photos[i].url,
-        description: this.user.photos[i].description
-      });
-    }
+    // for (let i = 0; i < this.user.photos.length; i++) {
+    //   imageUrls.push({
+    //     small: this.user.photos[i].url,
+    //     medium: this.user.photos[i].url,
+    //     large: this.user.photos[i].url,
+    //     description: this.user.photos[i].description
+    //   });
+    // }
     return imageUrls;
   }
 

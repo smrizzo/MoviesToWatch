@@ -49,7 +49,7 @@ namespace DatingApp.API
             services.AddScoped<IAuthRepository, AuthRepository>(); 
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddScoped<IMovieRepository, MovieRepository>();
-            //authentication middleware
+            // authentication middleware
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options => {
                   options.TokenValidationParameters = new TokenValidationParameters
