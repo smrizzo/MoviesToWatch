@@ -1,3 +1,49 @@
-<p>
-  movie-list works!
-</p>
+<div *ngIf="haveMovies()" class="text-center mt-3">
+    <h2>Movies to Watch for {{category.title}} found</h2>
+</div>
+
+<div *ngIf="haveMovies()" class="container-fluid mt-5">
+  <form class="form-inline" #form="ngForm" (ngSubmit)="loadMovies()" novalidate>
+    <div class="col">
+      <div class="btn-group float-left">
+        <button type="button" name="addCategory" class="btn btn-primary">Add Movie</button>
+      </div>
+    </div>
+    <div class="col">
+      <div class="btn-group float-right">
+        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="userParams.orderBy" 
+         btnRadio="lastActie">Highest Rated</button>
+        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="userParams.orderBy" 
+          btnRadio="created">Runtime</button>
+      </div>
+    </div>
+  </form>
+  <br>
+  
+  <div class="row justify-content-center">
+    <div *ngFor='let movie of movies' class="col-lg-2 col-md-3 col-sm-6">
+        <app-movie-card [movie]="movie"></app-movie-card>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center mt-5">
+      <pagination [boundaryLinks]="true" 
+                  [totalItems]="pagination.totalItems"
+                  [itemsPerPage]="pagination.itemsPerPage"
+                  [(ngModel)]="pagination.currentPage"
+                  (pageChanged)="pageChanged($event)"
+                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    
+      </pagination>
+    </div>
+</div>
+
+<div *ngIf="!haveMovies()" class="jumbotron">
+  <h1 class="display-4 text-center">Start adding movies to your "{{category.title }}" list!</h1>
+  <div class="text-center">
+      <a role="button" class="btn btn-primary btn-lg" [routerLink]="['/movies']"> Find Movies To Add</a>
+  </div>
+</div>
+
+
+

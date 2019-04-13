@@ -15,16 +15,16 @@ import { MovieService } from 'src/app/_services/movie.service';
   styleUrls: ['./movie-list.component.css']
 })
 export class MovieListComponent implements OnInit {
-  @Input() category: MovieCategory;
+  category: MovieCategory;
   movies: Movie[];
   pagination: Pagination;
-  categoryId: number;
   user: User = JSON.parse(localStorage.getItem('user'));
+  userParams: any = {};
 
   constructor(private movieService: MovieService,
               private route: ActivatedRoute,
               private authService: AuthService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -33,10 +33,13 @@ export class MovieListComponent implements OnInit {
       this.pagination = data.movies.pagination;
      });
 
-    this.movieService.categoryId.subscribe(data => {
-      this.categoryId = data;
+    this.movieService.currentCategory.subscribe(data => {
+      this.category = data;
     });
-    console.log('categoryId:::: ' + this.categoryId);
+  }
+
+  haveMovies() {
+    return this.movies.length > 0 ? true : false;
   }
 
   pageChanged(event: any): void {
@@ -46,7 +49,7 @@ export class MovieListComponent implements OnInit {
 
   loadMovies() {
     this.movieService.getMovies(this.authService.decodedToken.nameid,
-      this.categoryId, this.pagination.currentPage, this.pagination.itemsPerPage)
+      this.category.id, this.pagination.currentPage, this.pagination.itemsPerPage)
       .subscribe((res: PaginatedResult<Movie[]>) => {
         this.movies = res.result;
         this.pagination = res.pagination;

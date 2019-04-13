@@ -6,6 +6,8 @@ import { tap, map } from 'rxjs/operators';
 import { MovieDb } from '../_models/movieDb';
 import { PaginatedResult } from '../_models/pagination';
 import { Movie } from '../_models/movie';
+import { MovieCategory } from '../_models/movieCategory';
+import { CategoryService } from './category.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +17,20 @@ movieDbBaseUrl = 'http://localhost:5000/api/search/movies';
 baseUrl = 'http://localhost:5000/api/';
 // omdbMovies: OmdbMovie[];
 movieDb: MovieDb[];
-currentCategoryId: number;
-categoryId = new BehaviorSubject<number>(0);
-constructor(private http: HttpClient) { }
+currentCategory = new BehaviorSubject<MovieCategory>(null);
+constructor(private http: HttpClient, private categeryService: CategoryService) { }
 
-changeCategoryId(categoryId: number) {
-  // this.photoUrl.next(photoUrl);
-  this.categoryId.next(categoryId);
+changeCurrentCategory(categoryId: number, userId: number) {
+  this.categeryService.getCategory(categoryId, userId).subscribe(data => {
+    this.currentCategory.next(data);
+  });
+
 }
 
 getMovies(userId: number, categoryId: number, page?, itemsPerPage?, movieParams?, userParams?): Observable<PaginatedResult<Movie[]>> {
   const paginatedResult: PaginatedResult<Movie[]> = new PaginatedResult<Movie[]>();
   let params = new HttpParams();
-  this.changeCategoryId(categoryId);
+  this.changeCurrentCategory(categoryId, userId);
 
   if (page != null && itemsPerPage != null) {
     params = params.append('pageNumber', page);
