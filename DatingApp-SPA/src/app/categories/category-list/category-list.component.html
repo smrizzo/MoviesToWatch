@@ -1,5 +1,6 @@
-
-<div class="container-fluid mt-5">
+<h2 class="text-center">Your Movies to Watch List's</h2>
+<div *ngIf="haveCategories()" class="container-fluid mt-5">
+  
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadCategories()" novalidate>
     <div class="col">
       <div class="btn-group float-left">
@@ -23,20 +24,24 @@
     </div>
   </div>
 
+  <div class="d-flex justify-content-center">
+      <pagination 
+        [boundaryLinks]="true" 
+        [totalItems]="pagination.totalItems"
+        [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage"
+        (pageChanged)="pageChanged($event)"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
   
-
 </div>
 
-<div class="d-flex justify-content-center">
-  <pagination [boundaryLinks]="true" 
-              [totalItems]="pagination.totalItems"
-              [itemsPerPage]="pagination.itemsPerPage"
-              [(ngModel)]="pagination.currentPage"
-              (pageChanged)="pageChanged($event)"
-              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-
-  </pagination>
+<div *ngIf="!haveCategories()" class="jumbotron">
+  <h1 class="display-4 text-center">Start Adding Movies To Watch Categories list!</h1>
+  <div class="text-center">
+      <a role="button" class="btn btn-primary btn-lg mt-5" [routerLink]="['/category/form']" routerLinkActive="router-link-active" > Create Movie Category</a>
+  </div>
 </div>
 
-
-  <!-- <div class="album py-5 bg-light"></div> -->
+  

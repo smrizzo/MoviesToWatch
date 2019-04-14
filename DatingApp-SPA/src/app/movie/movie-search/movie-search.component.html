@@ -1,20 +1,44 @@
-<div id="search-component">
+<!-- <div id="search-component">
   <h4>Movie Search</h4>
   
   <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-</div>
+</div> -->
+<!-- <h4 class="text-center">Movie Search</h4> -->
+
+<div>
+  <h4 class="text-center mt-2">Movie Search</h4>
+  <div class="keyword-wrapper mt-3">
+    <input [formControl]="queryField" type="text" id="keyword" placeholder="Search for movies..." autofocus>
+    <button class="ml-4 btn btn-primary" type="button" (click)="goBack()">Done Adding Movies</button>
+  </div>
+  <div class="container-fluid mt-5">
+    <div class="row">
+       <div *ngFor='let movie of results' class="col-lg-2 col-md-3 col-sm-6">
+          <app-movie-db-card [movie]="movie"></app-movie-db-card>
+       </div>
+    </div>
+  </div>
   
-  <!-- <ul class="search-result">
-    <li *ngFor="let movie of omdbMovies" >
-      <a>
-        {{movie.title}}
-      </a>
-    </li>
-  </ul> -->
-<div class="container-fluid mt-5">
+</div>
+
+<!-- <section class="filter-wrapper">
+  <div class="keyword-wrapper">
+   <input [formControl]="queryField" type="text" id="keyword" placeholder="Search for movies..." autofocus/>
+  </div>
+ <ul class="filter-select">
+  <li *ngFor="let result of results" class="filter-select-list"><img src="{{result.poster_Path}}" width="50" height="50"><p class="artist-name">{{result.title}}</p></li>
+  
+ </ul>
+</section> -->
+
+<!-- <div class="container-fluid mt-5">
   <div class="row">
     <div *ngFor='let movie of movieDbMovies | async' class="col-lg-2 col-md-3 col-sm-6">
        <app-movie-db-card [movie]="movie"></app-movie-db-card>
     </div>
  </div>
-</div>
+</div> -->
+
+<!-- <span class="tags" *ngFor='let genre of result?.genres | slice:0:6'></span> -->
+
+

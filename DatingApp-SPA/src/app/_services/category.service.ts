@@ -10,15 +10,10 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CategoryService {
- baseUrl = environment.apiUrl;
- categoryId = new BehaviorSubject<number>(0);
+  baseUrl = environment.apiUrl;
+
 
   constructor(private http: HttpClient) { }
-
-  changeCategoryId(categoryId: number) {
-    // this.photoUrl.next(photoUrl);
-    this.categoryId.next(categoryId);
-  }
 
   getCategories(userId: number, page?, itemsPerPage?, categoryParams?, userParams?):
     Observable<PaginatedResult<MovieCategory[]>> {

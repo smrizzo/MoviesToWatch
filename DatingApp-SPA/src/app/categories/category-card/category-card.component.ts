@@ -16,12 +16,12 @@ export class CategoryCardComponent implements OnInit {
   }
 
   navigateToMovies() {
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-         category: this.category
-      }
-    };
-    this.route.navigate([`/movies/${this.category.id}`], navigationExtras);
+    // const navigationExtras: NavigationExtras = {
+    //   queryParams: {
+    //      category: this.category
+    //   }
+    // };
+    this.route.navigate([`/movies/${this.category.id}`]);
   }
 
 }

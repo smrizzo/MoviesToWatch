@@ -27,15 +27,15 @@ export class MovieListComponent implements OnInit {
               private alertify: AlertifyService) {}
 
   ngOnInit() {
+    this.movieService.currentCategory.subscribe(data => {
+      this.category = data;
+    });
+
     this.route.data.subscribe(data => {
       console.log(data);
       this.movies = data.movies.result;
       this.pagination = data.movies.pagination;
      });
-
-    this.movieService.currentCategory.subscribe(data => {
-      this.category = data;
-    });
   }
 
   haveMovies() {

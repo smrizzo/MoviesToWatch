@@ -27,6 +27,11 @@ export class CategoryListComponent implements OnInit {
       this.pagination = data.categories.pagination;
       this.categories = data.categories.result;
      });
+
+  }
+
+  haveCategories() {
+    return this.categories.length > 0 ? true : false;
   }
 
   pageChanged(event: any): void {
@@ -42,6 +47,6 @@ export class CategoryListComponent implements OnInit {
     }, error => {
        this.alertify.error(error);
     });
- }
+  }
 
 }

@@ -17,6 +17,7 @@ movieDbBaseUrl = 'http://localhost:5000/api/search/movies';
 baseUrl = 'http://localhost:5000/api/';
 // omdbMovies: OmdbMovie[];
 movieDb: MovieDb[];
+movieForDetail = new BehaviorSubject<Movie>(null);
 currentCategory = new BehaviorSubject<MovieCategory>(null);
 constructor(private http: HttpClient, private categeryService: CategoryService) { }
 
@@ -24,7 +25,10 @@ changeCurrentCategory(categoryId: number, userId: number) {
   this.categeryService.getCategory(categoryId, userId).subscribe(data => {
     this.currentCategory.next(data);
   });
+}
 
+changeMovieForDetail(movie: Movie) {
+  this.movieForDetail.next(movie);
 }
 
 getMovies(userId: number, categoryId: number, page?, itemsPerPage?, movieParams?, userParams?): Observable<PaginatedResult<Movie[]>> {
@@ -49,11 +53,19 @@ getMovies(userId: number, categoryId: number, page?, itemsPerPage?, movieParams?
     );
 }
 
+addMovie(userId: number, categoryId: number, movieId: number) {
+  return this.http.post(this.baseUrl + 'users/' + userId + '/movies/c=' + categoryId + '/m=' + movieId, {});
+}
+
 searchMovies(term: string): Observable<MovieDb[]> {
   if (!term.trim()) {
     return of([]);
   }
   return this.http.get<MovieDb[]>(`${this.movieDbBaseUrl}/s=${term}`);
+}
+
+getMovie(userId: number, id: number): Observable<Movie> {
+  return this.http.get<Movie>(`${this.baseUrl}users/${userId}/movies/m=${id}`);
 }
 
 // getMovie(): Observable<any> {

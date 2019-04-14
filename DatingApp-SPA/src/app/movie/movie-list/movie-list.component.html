@@ -1,12 +1,11 @@
 <div *ngIf="haveMovies()" class="text-center mt-3">
-    <h2>Movies to Watch for {{category.title}} found</h2>
+    <h2>Movies to Watch for {{category.title}}</h2>
 </div>
-
 <div *ngIf="haveMovies()" class="container-fluid mt-5">
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadMovies()" novalidate>
     <div class="col">
       <div class="btn-group float-left">
-        <button type="button" name="addCategory" class="btn btn-primary">Add Movie</button>
+          <a role="button" class="btn btn-primary mt-5" [routerLink]="['/movies']">Add Movies</a>
       </div>
     </div>
     <div class="col">
@@ -39,11 +38,12 @@
 </div>
 
 <div *ngIf="!haveMovies()" class="jumbotron">
-  <h1 class="display-4 text-center">Start adding movies to your "{{category.title }}" list!</h1>
+  <h1 class="display-4 text-center">Start adding movies to your "{{ category.title }}" list!</h1>
   <div class="text-center">
-      <a role="button" class="btn btn-primary btn-lg" [routerLink]="['/movies']"> Find Movies To Add</a>
+      <a role="button" class="btn btn-primary btn-lg mt-5" [routerLink]="['/movies']"> Find Movies To Add</a>
   </div>
 </div>
+
 
 
 

@@ -18,6 +18,8 @@ import { CategoryDetailComponent } from './categories/category-detail/category-d
 import { CategoryFormComponent } from './categories/category-form/category-form.component';
 import { MovieListComponent } from './movie/movie-list/movie-list.component';
 import { MovieListResolver } from './_resolver/movie-list.resolver';
+import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
+import { MovieDetailResolver } from './_resolver/movie-detail.resolver';
 
 
 // Using AuthGuard to protect routes so cannot enter directly in browser
@@ -34,6 +36,8 @@ export const appRoutes: Routes = [
           resolve: {categories: CategoryListResolver}},
         { path: 'movies/:id', component: MovieListComponent,
           resolve: { movies: MovieListResolver }},
+        { path: 'movie/detail/:id', component: MovieDetailComponent,
+          resolve: { movie: MovieDetailResolver}},
         { path: 'movies', component: MovieSearchComponent},
         { path: 'categories/:id', component: CategoryDetailComponent },
         { path: 'category/form', component: CategoryFormComponent }

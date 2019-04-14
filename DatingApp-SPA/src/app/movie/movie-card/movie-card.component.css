@@ -19,6 +19,12 @@
   
 }
 
+.card-img-top {
+  width: 100%;
+  height: 23vw;
+  object-fit: cover;
+}
+
 .member-icons {
   position: absolute;
   bottom: -30%;

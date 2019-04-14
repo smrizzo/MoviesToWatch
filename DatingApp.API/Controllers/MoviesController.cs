@@ -106,8 +106,12 @@ namespace DatingApp.API.Controllers
         var movieFromMovieDb = await response.Content.ReadAsAsync<MovieForCreationDto>();
         var categoryFromRepo = await _repo.GetMovieCategory(categoryId);
         var path = movieFromMovieDb.Poster_path;
-        movieFromMovieDb.Poster_path = $"http://image.tmdb.org/t/p/w500{path}";
-
+        if(path == null || path == "") {
+          movieFromMovieDb.Poster_path = "http://res.cloudinary.com/dx5qpxwu1/image/upload/c_fill,h_237,w_158/v1555188904/no_image.jpg";
+        } else {
+          movieFromMovieDb.Poster_path = $"http://image.tmdb.org/t/p/w500{path}";
+        }
+        
         var movie = _mapper.Map<Movie>(movieFromMovieDb);
         categoryFromRepo.Movies.Add(movie);
 
@@ -145,7 +149,7 @@ namespace DatingApp.API.Controllers
           var uploadParams = new ImageUploadParams()
           {
             File = new FileDescription(file.Name, stream),
-            Transformation = new Transformation().Width(248).Height(368)
+            Transformation = new Transformation().Width(248).Height(368).Crop("fill")
           };
 
           uploadResult = _cloudinary.Upload(uploadParams);

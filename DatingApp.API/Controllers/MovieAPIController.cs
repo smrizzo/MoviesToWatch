@@ -31,7 +31,12 @@ namespace DatingApp.API.Controllers
         var moviesDb = await response.Content.ReadAsAsync<MovieDbSearchResults>();
         foreach(MovieForMovieDbSearch movie in moviesDb.Results) {
           var path = movie.Poster_Path;
-          movie.Poster_Path = $"http://image.tmdb.org/t/p/w500{path}";
+          if(path == null || path == "") {
+            movie.Poster_Path = "http://res.cloudinary.com/dx5qpxwu1/image/upload/c_fill,h_237,w_158/v1555188904/no_image.jpg";
+          } else {
+            movie.Poster_Path = $"http://image.tmdb.org/t/p/w500{path}";
+          }
+          
         }
         return Ok(moviesDb.Results);
         

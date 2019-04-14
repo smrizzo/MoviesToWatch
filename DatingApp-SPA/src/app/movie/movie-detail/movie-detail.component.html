@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <div class="row col-sm-8">
+    <h1>{{movie.title}}</h1>
+  </div>
+   <div class="row">
+      <div class="col-sm-4">
+         <div class="card">
+            <img class="card-img-top img-thumbnail" src="{{movie.poster_path}}">
+            <div class="card-body">
+               
+            </div>
+            <div class="card-footer">
+              <div class="btn-group d-flex">
+                <button [disabled]="!changedRating" class="btn btn-success w-100">Save Changes</button>
+              </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="tab-panel">
+          <tabset class="member-tabset">
+            <tab heading="Overview">
+              <h4>Overview</h4>
+              <p style="font-size:24px">{{movie.overview}}</p>
+              <div *ngIf="hasHomePage()" class="mb-1 ">
+                <h4>HomePage</h4>
+                <a href="{{movie.homepage}}" target="_blank">{{movie.title}}</a>
+              </div>
+              <h4>Runtime</h4>
+              <p>{{movie.runtime}} Minutes</p>
+              <h4>Rating</h4>
+              <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+              </ng-template>
+              <div class='d-flex'>
+              <ngb-rating [(rate)]="currentRate" (click)="rateChanged()" [starTemplate]="t"  max="5"></ngb-rating>
+              <p class="ml-4 mt-3">{{currentRate}}</p>
+              </div>
+              <div class="input-group">
+                <div class="col-xs-2">
+                    <input #inputRating type="text" class="form-control" name="rating" onfocus="this.value=''" required placeholder="Enter Rating..">   
+                </div>
+                <div class="input-group-append ml-1">
+                  <button class="btn btn-outline-success" (click)="setRating(inputRating.value)" type="submit">Rate</button>
+                </div> 
+              </div>
+            </tab>
+            <tab heading="Photos">
+              Something might go here
+            </tab>
+            <tab heading="Options">
+              This is where delete will go I think
+            </tab>
+          </tabset>
+        </div>
+      </div>
+   </div>
+</div>
+  

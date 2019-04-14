@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
 export class CategoryFormComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   category = new FormData();
-  photoUrl: string;
   selectedFile: File;
   title: string;
   description: string;

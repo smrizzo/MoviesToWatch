@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
       }, error => {
         this.alertify.error(error);
       }, () => this.authService.login(this.user).subscribe(() => {
-        this.router.navigate(['/members']);
+        this.router.navigate(['/categories']);
       }));
     }
     // this.authService.register(this.model).subscribe(() => {

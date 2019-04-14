@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -45,6 +46,8 @@ import { PhotoAddComponent } from './categories/photo-add/photo-add.component';
 import { MovieListComponent } from './movie/movie-list/movie-list.component';
 import { MovieListResolver } from './_resolver/movie-list.resolver';
 import { MovieDbCardComponent } from './movie/movie-db-card/movie-db-card.component';
+import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
+import { MovieDetailResolver } from './_resolver/movie-detail.resolver';
 
 
 
@@ -75,13 +78,15 @@ export function tokenGetter() {
       CategoryFormComponent,
       PhotoAddComponent,
       MovieListComponent,
-      MovieDbCardComponent
+      MovieDbCardComponent,
+      MovieDetailComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       NgxGalleryModule,
+      NgbModule,
       ReactiveFormsModule,
       ButtonsModule.forRoot(),
       FileUploadModule,
@@ -112,7 +117,8 @@ export function tokenGetter() {
      MovieService,
      CategoryService,
      CategoryListResolver,
-     MovieListResolver
+     MovieListResolver,
+     MovieDetailResolver
   ],
   bootstrap: [
      AppComponent
