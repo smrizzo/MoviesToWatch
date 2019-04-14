@@ -15,6 +15,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class MovieCardComponent implements OnInit {
   @Input() movie: Movie;
   @Output() deletedMovie = new EventEmitter<number>();
+  watchedMovie = false;
   constructor(private route: ActivatedRoute, private router: Router, private movieService: MovieService,
               private alertify: AlertifyService, private authService: AuthService) { }
 
@@ -24,6 +25,12 @@ export class MovieCardComponent implements OnInit {
   navigateToDetail() {
     this.movieService.changeMovieForDetail(this.movie);
     this.router.navigate(['/movie/detail', this.movie.id]);
+  }
+
+  setHaveWatched() {
+    this.watchedMovie = !this.watchedMovie;
+    this.watchedMovie === true ? this.alertify.message('Have watched ' + this.movie.title) :
+      this.alertify.message('Have not watched: ' + this.movie.title);
   }
 
   deleteMovie(id: number) {

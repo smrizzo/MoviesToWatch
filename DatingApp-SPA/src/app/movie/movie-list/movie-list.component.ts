@@ -20,6 +20,8 @@ export class MovieListComponent implements OnInit {
   pagination: Pagination;
   user: User = JSON.parse(localStorage.getItem('user'));
   userParams: any = {};
+  filterList = [{value: 'watched', display: 'Watched'}, {value: 'notWatched', display: 'Not Watched'},
+    {value: 'runtime', display: 'Runtime'}, {value: 'rating', display: 'Highest Rating'}];
 
   constructor(private movieService: MovieService,
               private route: ActivatedRoute,
@@ -35,18 +37,12 @@ export class MovieListComponent implements OnInit {
       console.log(data);
       this.movies = data.movies.result;
       this.pagination = data.movies.pagination;
-     });
+    });
+
+    this.userParams.orderBy = 'notWatched';
   }
 
   deleteMovie(id: number) {
-    // this.alertify.confirm('Are you sure you want to delete this photo?', () => {
-    //   this.userService.deletePhoto(this.authService.decodedToken.nameid, id).subscribe(() => {
-    //     this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
-    //     this.alertify.success('Photo has been deleted');
-    //   }, error => {
-    //     this.alertify.error('Failed to delete the photo');
-    //   });
-    // });
     this.alertify.confirm('Are you sure you want to delete this Movie?', () => {
       this.movieService.deleteMovie(this.authService.decodedToken.nameid, id).subscribe(() => {
         this.pagination.currentPage = 1;
@@ -56,6 +52,10 @@ export class MovieListComponent implements OnInit {
         this.alertify.error('Failed to delete the Movie');
       });
     });
+  }
+
+  resetFilter() {
+    this.userParams.orderBy = 'notWatched';
   }
 
   haveMovies() {
