@@ -20,7 +20,7 @@
   
   <div class="row justify-content-center">
     <div *ngFor='let category of categories' class="col-lg-2 col-md-3 col-sm-6">
-        <app-category-card [category]="category"></app-category-card>
+        <app-category-card [category]="category" (deletedCategory)="deleteCategory($event)"></app-category-card>
     </div>
   </div>
 

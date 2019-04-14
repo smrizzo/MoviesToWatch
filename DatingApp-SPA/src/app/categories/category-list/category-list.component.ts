@@ -27,7 +27,18 @@ export class CategoryListComponent implements OnInit {
       this.pagination = data.categories.pagination;
       this.categories = data.categories.result;
      });
+  }
 
+  deleteCategory(id: number) {
+    this.alertify.confirm('You will lose all movies saved under this category!! Are you sure you want to delete category??', () => {
+      this.categoryService.deleteCategory(this.authService.decodedToken.nameid, id).subscribe(() => {
+        this.pagination.currentPage = 1;
+        this.loadCategories();
+        this.alertify.success('Category has been deleted');
+      }, error => {
+        this.alertify.error('Failed to delete category');
+      });
+    });
   }
 
   haveCategories() {

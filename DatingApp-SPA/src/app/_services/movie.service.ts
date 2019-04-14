@@ -68,8 +68,10 @@ getMovie(userId: number, id: number): Observable<Movie> {
   return this.http.get<Movie>(`${this.baseUrl}users/${userId}/movies/m=${id}`);
 }
 
-deleteMovie(userId: number, categoryId: number, movieId: number) {
-  return this.http.delete(`${this.baseUrl}users/${userId}/movies/c=${categoryId}/m=${movieId}`);
+deleteMovie(userId: number, movieId: number) {
+  const { id } = this.currentCategory.getValue();
+  // console.log('Deleted Movie: ' + movieId + ', for category Id: ' + id);
+  return this.http.delete(`${this.baseUrl}users/${userId}/movies/c=${id}/m=${movieId}`);
 }
 
 // getMovie(): Observable<any> {
