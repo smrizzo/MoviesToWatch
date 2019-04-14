@@ -68,6 +68,10 @@ getMovie(userId: number, id: number): Observable<Movie> {
   return this.http.get<Movie>(`${this.baseUrl}users/${userId}/movies/m=${id}`);
 }
 
+deleteMovie(userId: number, categoryId: number, movieId: number) {
+  return this.http.delete(`${this.baseUrl}users/${userId}/movies/c=${categoryId}/m=${movieId}`);
+}
+
 // getMovie(): Observable<any> {
 //   const url = 'https://api.themoviedb.org/3/search/movie?' +
 //     'api_key=3650d864e76977abd467fdc82290d485&query=captain&include_adult=false';
