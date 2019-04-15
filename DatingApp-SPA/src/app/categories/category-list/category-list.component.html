@@ -1,4 +1,4 @@
-<h2 class="text-center">Your Movies to Watch List's</h2>
+<h2 *ngIf="haveCategories()" class="text-center">Your Movies to Watch List's</h2>
 <div *ngIf="haveCategories()" class="container-fluid mt-5">
   
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadCategories()" novalidate>
@@ -32,9 +32,9 @@
 </div>
 
 <div *ngIf="!haveCategories()" class="jumbotron">
-  <h1 class="display-4 text-center">Start Adding Movies To Watch Categories list!</h1>
+  <h1 class="display-4 text-center">Start Adding Movies To Watch list!</h1>
   <div class="text-center">
-      <a role="button" class="btn btn-primary btn-lg mt-5" [routerLink]="['/category/form']" routerLinkActive="router-link-active" > Create Movie Category</a>
+      <a role="button" class="btn btn-primary btn-lg mt-5" [routerLink]="['/category/form']" routerLinkActive="router-link-active" > Create Movie List</a>
   </div>
 </div>
 

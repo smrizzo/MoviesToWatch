@@ -8,14 +8,14 @@ import { PaginatedResult } from '../_models/pagination';
 import { Movie } from '../_models/movie';
 import { MovieCategory } from '../_models/movieCategory';
 import { CategoryService } from './category.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-movieDbBaseUrl = 'http://localhost:5000/api/search/movies';
-baseUrl = 'http://localhost:5000/api/';
-// omdbMovies: OmdbMovie[];
+baseUrl = environment.apiUrl;
+movieDbBaseUrl = this.baseUrl + 'search/movies';
 movieDb: MovieDb[];
 movieForDetail = new BehaviorSubject<Movie>(null);
 currentCategory = new BehaviorSubject<MovieCategory>(null);
@@ -82,13 +82,5 @@ deleteMovie(userId: number, movieId: number) {
   // console.log('Deleted Movie: ' + movieId + ', for category Id: ' + id);
   return this.http.delete(`${this.baseUrl}users/${userId}/movies/c=${id}/m=${movieId}`);
 }
-
-// getMovie(): Observable<any> {
-//   const url = 'https://api.themoviedb.org/3/search/movie?' +
-//     'api_key=3650d864e76977abd467fdc82290d485&query=captain&include_adult=false';
-//   // const url = 'http://www.omdbapi.com/?t=thor+3&apikey=948cea94';
-//   // const url = 'http://www.omdbapi.com/?apikey=948cea94&t=legends+of+the+fall';
-//   return this.http.get(url);
-//  }
 
 }

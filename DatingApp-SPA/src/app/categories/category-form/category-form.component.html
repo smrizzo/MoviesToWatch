@@ -23,7 +23,11 @@
                 <input 
                   type="file" 
                   (change)="onSelectedFile($event)">
-                <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block mt-4">Create</button>
+                <button *ngIf="!loading" [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block mt-4">Create</button>
+                <button *ngIf="loading" class="btn btn-success btn-block mt-4" type="button" disabled>
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Loading...
+                </button>
           </form>
         </div>
       </div>

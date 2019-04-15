@@ -1,16 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { MemberListComponent } from './members/member-list/member-list.component';
-import { MessagesComponent } from './messages/messages.component';
-import { ListsComponent } from './lists/lists.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
-import { MemberDetailResolver } from './_resolver/member-detail.resolver';
-import { MemberListResolver } from './_resolver/member-list.resolver';
-import { MemberEditComponent } from './members/member-edit/member-edit.component';
-import { MemberEditResolver } from './_resolver/member-edit.resolver';
-import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
-import { ListResolver } from './_resolver/lists.resolver';
 import { MovieSearchComponent } from './movie/movie-search/movie-search.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CategoryListResolver } from './_resolver/category-list.resolver';
@@ -20,6 +10,8 @@ import { MovieListComponent } from './movie/movie-list/movie-list.component';
 import { MovieListResolver } from './_resolver/movie-list.resolver';
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
 import { MovieDetailResolver } from './_resolver/movie-detail.resolver';
+import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
+import { CategoryEditResolver } from './_resolver/category-edit.resolver';
 
 
 // Using AuthGuard to protect routes so cannot enter directly in browser
@@ -40,7 +32,9 @@ export const appRoutes: Routes = [
           resolve: { movie: MovieDetailResolver}},
         { path: 'movies', component: MovieSearchComponent},
         { path: 'categories/:id', component: CategoryDetailComponent },
-        { path: 'category/form', component: CategoryFormComponent }
+        { path: 'category/form', component: CategoryFormComponent },
+        { path: 'category/edit/:id', component: CategoryEditComponent,
+          resolve: { category: CategoryEditResolver } }
       ]
    },
    { path: '**', redirectTo: '', pathMatch: 'full'}

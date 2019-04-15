@@ -76,10 +76,4 @@ export class UserService {
      return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {});
    }
 
-   getMovie(): Observable<any> {
-    const url = 'https://api.themoviedb.org/3/search/movie?' +
-      'api_key=3650d864e76977abd467fdc82290d485&language=en-US&query=thor%203&page=1&include_adult=false';
-    return this.http.get(url);
-   }
-
 }

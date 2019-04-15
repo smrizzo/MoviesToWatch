@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate } from '@angular/router';
-import { MemberEditComponent } from '../members/member-edit/member-edit.component';
+import { CategoryEditComponent } from '../categories/category-edit/category-edit.component';
 
 @Injectable()
-export class PreventUnsavedChanges implements CanDeactivate<MemberEditComponent> {
-  canDeactivate(component: MemberEditComponent) {
+export class PreventUnsavedChanges implements CanDeactivate<CategoryEditComponent> {
+  canDeactivate(component: CategoryEditComponent) {
     if (component.editForm.dirty) {
       return confirm('Are you sure you want to continue? Any unsaved changes will be lost');
     }

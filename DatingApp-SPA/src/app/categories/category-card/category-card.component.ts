@@ -16,11 +16,15 @@ export class CategoryCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateToMovies() {
+  navigateToMovies(): void {
     this.route.navigate([`/movies/${this.category.id}`]);
   }
 
-  deleteCategory(id: number) {
+  editCategory(id: number): void {
+    this.route.navigate([`/category/edit/${id}`]);
+  }
+
+  deleteCategory(id: number): void {
     console.log('category to be deleted: ' + id);
     this.deletedCategory.emit(id);
   }

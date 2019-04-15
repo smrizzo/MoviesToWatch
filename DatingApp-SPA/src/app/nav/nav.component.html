@@ -5,11 +5,11 @@
   
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
         <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/categories']">Movie Categories</a>
+          <a class="nav-link" [routerLink]="['/categories']">Movies To Watch </a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <!-- <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" [routerLink]="['/movies']">Movies</a>
-        </li>
+        </li> -->
       </ul> 
     
       <div *ngIf="loggedIn()" class="dropdown" dropdown>

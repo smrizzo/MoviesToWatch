@@ -37,12 +37,12 @@ export class CategoryService {
       );
   }
 
-  getCategory(categoryId: number, userId: number): Observable<MovieCategory> {
+  getCategory(userId: number, categoryId: number): Observable<MovieCategory> {
     return this.http.get<MovieCategory>(this.baseUrl + 'users/' + userId + '/movies/c=' + categoryId);
   }
 
-  updateCategory(categoryId: number, userId: number, movieCategory: MovieCategory) {
-    return this.http.put(this.baseUrl + 'users/' + userId + '/movies/' + categoryId, movieCategory);
+  updateCategory(userId: number, categoryId: number, movieCategory: MovieCategory) {
+    return this.http.put(this.baseUrl + 'users/' + userId + '/movies/c=' + categoryId, movieCategory);
   }
 
   addCategory(userId: number, movieCategory: any) {

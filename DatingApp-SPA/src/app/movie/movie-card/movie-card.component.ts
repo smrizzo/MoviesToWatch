@@ -28,7 +28,7 @@ export class MovieCardComponent implements OnInit {
     this.router.navigate(['/movie/detail', this.movie.id]);
   }
 
-  setHaveWatched(id: number) {
+  setHaveWatched() {
     this.movie.watched = !this.movie.watched;
     console.log(this.movie.watched);
     this.movieService.updateMovie(this.authService.decodedToken.nameid, this.movie.id, this.movie).subscribe(next => {

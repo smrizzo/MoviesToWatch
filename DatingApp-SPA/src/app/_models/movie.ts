@@ -5,7 +5,7 @@ export interface Movie {
   overview: string;
   homepage: string;
   year: string;
-  realease_date: string;
+  release_date: string;
   runtime: number;
   imdb_id: string;
   vote_average: number;

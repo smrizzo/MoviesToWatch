@@ -18,6 +18,7 @@ export class CategoryFormComponent implements OnInit {
   selectedFile: File;
   title: string;
   description: string;
+  loading: boolean;
 
 
   constructor(private categoryService: CategoryService,
@@ -25,20 +26,28 @@ export class CategoryFormComponent implements OnInit {
               private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.loading = false;
   }
 
   addCategory() {
-    this.category.append('Title', this.title);
-    this.category.append('Description', this.description);
-    this.category.append('File', this.selectedFile, this.selectedFile.name);
-    this.categoryService.addCategory(this.authService.decodedToken.nameid, this.category).subscribe(next => {
-      this.alertify.success('Category was created successfully');
-      this.editForm.reset(this.category);
-    }, error => {
-      this.alertify.error(error);
-    }, () => {
-      this.router.navigate(['/categories']);
-    });
+    if (this.title !== undefined && this.description !== undefined && this.selectedFile !== undefined ) {
+      this.loading = true;
+      this.category.append('Title', this.title);
+      this.category.append('Description', this.description);
+      this.category.append('File', this.selectedFile, this.selectedFile.name);
+      this.categoryService.addCategory(this.authService.decodedToken.nameid, this.category).subscribe(next => {
+        this.alertify.success('Category was created successfully');
+        this.editForm.reset(this.category);
+        this.loading = false;
+      }, error => {
+        this.alertify.error(error);
+      }, () => {
+        this.router.navigate(['/categories']);
+      });
+    } else {
+      this.alertify.warning('Please fill out all fields and choose photo');
+    }
+
   }
 
   onSelectedFile(event) {

@@ -39,7 +39,7 @@ export class MovieListComponent implements OnInit {
       this.pagination = data.movies.pagination;
     });
 
-    this.userParams.orderBy = 'notWatched';
+    this.userParams.orderBy = 'id';
   }
 
   deleteMovie(id: number) {
