@@ -6,8 +6,8 @@
         <li class="list-inline-item"><button class="btn btn-info" (click)="navigateToDetail()"><i class="fa fa-info"></i></button></li>
         <li class="list-inline-item">
           <button class="btn btn-primary" (click)="setHaveWatched()" >
-            <i *ngIf="!watchedMovie" class="fa fa-eye-slash fa-sm"></i>
-            <i *ngIf="watchedMovie" class="fa fa-eye fa-sm"></i>
+            <i *ngIf="!movie.watched" class="fa fa-eye-slash fa-sm"></i>
+            <i *ngIf="movie.watched" class="fa fa-eye fa-sm"></i>
           </button>
         </li>
      </ul>

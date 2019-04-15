@@ -5,6 +5,8 @@ import { MovieService } from 'src/app/_services/movie.service';
 import { FormControl, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EmbedVideoService } from 'ngx-embed-video';
+import { AuthService } from 'src/app/_services/auth.service';
+import { AlertifyService } from 'src/app/_services/alertify.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -20,20 +22,16 @@ export class MovieDetailComponent implements OnInit {
   // ctrl = new FormControl(null, Validators.required);
 
   constructor(private route: ActivatedRoute, private movieService: MovieService, private sanitizer: DomSanitizer,
-              private embedService: EmbedVideoService) {}
+              private embedService: EmbedVideoService, private authService: AuthService, private alertify: AlertifyService) {}
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.movie = data.movie;
     });
     this.currentRate = 3.14;
-    console.log('movie trailer' + this.movie.trailer_url);
     this.iframeHtml = this.embedService.embed(this.movie.trailer_url, {
       attr: { width: 700, height: 349 }
     });
-    // let url = this.movie.trailer_url;
-    // url = url.replace('watch?v=', 'embed/');
-    // this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   hasHomePage(): boolean {
@@ -44,12 +42,20 @@ export class MovieDetailComponent implements OnInit {
     return this.movie.trailer_url == null ? false : true;
   }
 
+  rateMovie(id: number): void {
+    this.movieService.updateMovie(this.authService.decodedToken.nameid, id, this.movie).subscribe(next => {
+      this.alertify.success('Saved Changes Successfully');
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
   setRating(rate: number): void {
-    this.currentRate = rate;
+    this.movie.rating = rate;
     this.rateChanged();
   }
 
-  rateChanged() {
+  rateChanged(): void {
     this.changedRating = true;
   }
 }

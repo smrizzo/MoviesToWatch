@@ -79,11 +79,17 @@ namespace DatingApp.API.Data
          {
            switch (userParams.OrderBy)
            {
-             case "year":
-              movies = movies.OrderByDescending(m => m.Year);
+             case "rating":
+              movies = movies.OrderByDescending(m => m.Rating);
               break;
              case "runtime":
               movies = movies.OrderByDescending(m => m.Runtime);
+              break;
+             case "watched":
+              movies = movies.Where(m => m.Watched == true);
+              break;
+             case "notWatched":
+              movies = movies.Where(m => m.Watched == false);
               break;
              default:
               movies = movies.OrderByDescending(m => m.Id);

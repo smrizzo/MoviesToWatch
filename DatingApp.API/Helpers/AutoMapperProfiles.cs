@@ -33,6 +33,7 @@ namespace DatingApp.API.Helpers
             CreateMap<MovieCategory, CategoryForListDto>();
 
             //mappers for movies
+            CreateMap<MovieForUpdateDto, Movie>();
             CreateMap<Movie, MovieForReturnDto>();
             CreateMap<MovieForCreationDto, Movie>();
             CreateMap<Movie, MovieForCreationDto>();

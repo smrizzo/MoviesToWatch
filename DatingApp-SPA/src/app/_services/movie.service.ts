@@ -31,7 +31,7 @@ changeMovieForDetail(movie: Movie) {
   this.movieForDetail.next(movie);
 }
 
-getMovies(userId: number, categoryId: number, page?, itemsPerPage?, movieParams?, userParams?): Observable<PaginatedResult<Movie[]>> {
+getMovies(userId: number, categoryId: number, page?, itemsPerPage?, userParams?): Observable<PaginatedResult<Movie[]>> {
   const paginatedResult: PaginatedResult<Movie[]> = new PaginatedResult<Movie[]>();
   let params = new HttpParams();
   this.changeCurrentCategory(categoryId, userId);
@@ -39,6 +39,11 @@ getMovies(userId: number, categoryId: number, page?, itemsPerPage?, movieParams?
   if (page != null && itemsPerPage != null) {
     params = params.append('pageNumber', page);
     params = params.append('pageSize', itemsPerPage);
+  }
+
+  if (userParams != null) {
+    console.log('Found params orderBy: ' + userParams.orderBy);
+    params = params.append('orderBy', userParams.orderBy);
   }
 
   return this.http.get<Movie[]>(this.baseUrl + 'users/' + userId + '/movies/category/' + categoryId, { observe: 'response', params })
@@ -55,6 +60,10 @@ getMovies(userId: number, categoryId: number, page?, itemsPerPage?, movieParams?
 
 addMovie(userId: number, categoryId: number, movieId: number) {
   return this.http.post(this.baseUrl + 'users/' + userId + '/movies/c=' + categoryId + '/m=' + movieId, {});
+}
+
+updateMovie(userId: number, movieId: number, movie: Movie) {
+  return this.http.put(`${this.baseUrl}users/${userId}/movies/m=${movieId}`, movie);
 }
 
 searchMovies(term: string): Observable<MovieDb[]> {

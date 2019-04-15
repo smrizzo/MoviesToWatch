@@ -227,7 +227,7 @@ namespace DatingApp.API.Controllers
       return BadRequest("Failed to delete category");
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("c={id}")]
     public async Task<IActionResult> UpdateMovieCategory(int userId, int id, CategoryForUpdateDto categoryForUpdateDto)
     {
       if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -244,6 +244,24 @@ namespace DatingApp.API.Controllers
       }
       throw new Exception($"Updating category with {id} failed on save");
     }
+    
+    [HttpPut("m={id}")]
+    public async Task<IActionResult> UpdateMovie(int userId, int id, MovieForUpdateDto movieForUpdateDto) {
 
+      if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+      {
+        return Unauthorized();
+      }
+
+      var movieFromRepo = await _repo.GetMovie(id);
+      _mapper.Map(movieForUpdateDto, movieFromRepo);
+
+      if (await _repo.SaveAll())
+      {
+        return NoContent();
+      }
+      throw new Exception($"Updating movie with {id} failed on save");
+    }
+      
   }
 }

@@ -11,7 +11,7 @@
             </div>
             <div class="card-footer">
               <div class="btn-group d-flex">
-                <button [disabled]="!changedRating" class="btn btn-success w-100">Save Changes</button>
+                <button [disabled]="!changedRating" class="btn btn-success w-100" (click)="rateMovie(movie.id)">Save Changes</button>
               </div>
             </div>
          </div>
@@ -35,8 +35,8 @@
                 </span>
               </ng-template>
               <div class='d-flex'>
-              <ngb-rating [(rate)]="currentRate" (click)="rateChanged()" [starTemplate]="t"  max="5"></ngb-rating>
-              <p class="ml-4 mt-3">{{currentRate}}</p>
+              <ngb-rating [(rate)]="movie.rating" (click)="rateChanged()" [starTemplate]="t"  max="5"></ngb-rating>
+              <p class="ml-4 mt-3">{{movie.rating}}</p>
               </div>
               <div class="input-group">
                 <div class="col-xs-2">

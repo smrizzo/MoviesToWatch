@@ -54,8 +54,13 @@ export class MovieListComponent implements OnInit {
     });
   }
 
+  printMovie(movie: Movie) {
+    console.log(movie.watched);
+  }
+
   resetFilter() {
-    this.userParams.orderBy = 'notWatched';
+    this.userParams.orderBy = 'id';
+    this.loadMovies();
   }
 
   haveMovies() {
@@ -69,7 +74,7 @@ export class MovieListComponent implements OnInit {
 
   loadMovies() {
     this.movieService.getMovies(this.authService.decodedToken.nameid,
-      this.category.id, this.pagination.currentPage, this.pagination.itemsPerPage)
+      this.category.id, this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
       .subscribe((res: PaginatedResult<Movie[]>) => {
         this.movies = res.result;
         this.pagination = res.pagination;

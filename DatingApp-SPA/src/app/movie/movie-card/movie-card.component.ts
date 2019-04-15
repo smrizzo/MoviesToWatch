@@ -20,6 +20,7 @@ export class MovieCardComponent implements OnInit {
               private alertify: AlertifyService, private authService: AuthService) { }
 
   ngOnInit() {
+    console.log('movies watch or not:' + this.movie.watched);
   }
 
   navigateToDetail() {
@@ -27,10 +28,15 @@ export class MovieCardComponent implements OnInit {
     this.router.navigate(['/movie/detail', this.movie.id]);
   }
 
-  setHaveWatched() {
-    this.watchedMovie = !this.watchedMovie;
-    this.watchedMovie === true ? this.alertify.message('Have watched ' + this.movie.title) :
-      this.alertify.message('Have not watched: ' + this.movie.title);
+  setHaveWatched(id: number) {
+    this.movie.watched = !this.movie.watched;
+    console.log(this.movie.watched);
+    this.movieService.updateMovie(this.authService.decodedToken.nameid, this.movie.id, this.movie).subscribe(next => {
+      this.movie.watched === true ? this.alertify.message('Have watched ' + this.movie.title) :
+        this.alertify.message('Have not watched: ' + this.movie.title);
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   deleteMovie(id: number) {

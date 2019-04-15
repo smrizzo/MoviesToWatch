@@ -8,8 +8,8 @@
     <div class="col">
       <div class="form-group float-right">
         <label for="filter">Show: </label>
-        <select class="form-control ml-1" style="width: 130px" id="filter"
-          [(ngModel)]="userParams.orderBy" name="filter">
+        <select class="form-control ml-1" style="width: 130px" id="orderBy"
+          [(ngModel)]="userParams.orderBy" name="orderBy">
           <option *ngFor="let filter of filterList" [value]="filter.value">
             {{filter.display}}
           </option>
@@ -29,6 +29,7 @@
   
   <div class="row justify-content-center">
     <div *ngFor='let movie of movies' class="col-lg-2 col-md-3 col-sm-6">
+        <p>{{movie.watched}}</p>
         <app-movie-card [movie]="movie" (deletedMovie)="deleteMovie($event)"></app-movie-card>
     </div>
   </div>
