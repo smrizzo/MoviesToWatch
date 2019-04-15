@@ -47,11 +47,10 @@
                 </div> 
               </div>
             </tab>
-            <tab heading="Photos">
-              Something might go here
-            </tab>
-            <tab heading="Options">
-              This is where delete will go I think
+            <tab *ngIf="hasTrailer()" heading="Trailer">
+              <div class="videoWrapper">
+                <div [innerHTML]="iframeHtml"></div>
+              </div >
             </tab>
           </tabset>
         </div>

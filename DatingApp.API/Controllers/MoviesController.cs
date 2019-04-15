@@ -99,11 +99,20 @@ namespace DatingApp.API.Controllers
       }
 
       var client = _clientFactory.CreateClient();
-      var response = await client.GetAsync($"https://api.themoviedb.org/3/movie/{movieId}?api_key=3650d864e76977abd467fdc82290d485&language=en-US");
+      var response = await client.GetAsync($"https://api.themoviedb.org/3/movie/{movieId}?api_key=3650d864e76977abd467fdc82290d485&language=en-US&append_to_response=videos");
 
+      // https://www.youtube.com/watch?v=npvJ9FTgZbM
       if (response.IsSuccessStatusCode)
       {
         var movieFromMovieDb = await response.Content.ReadAsAsync<MovieForCreationDto>();
+        Console.WriteLine("================= CHECKING MOVIE ARRAY:: "  + movieFromMovieDb.Videos.results);
+        if(movieFromMovieDb.Videos.results != null) {
+          if(movieFromMovieDb.Videos.results.ToArray().Length > 0) {
+            var videoList = movieFromMovieDb.Videos.results.ToList();
+            var key = videoList[0].key;
+            movieFromMovieDb.Trailer_url = $"https://www.youtube.com/watch?v={key}";
+          } 
+        }
         var categoryFromRepo = await _repo.GetMovieCategory(categoryId);
         var path = movieFromMovieDb.Poster_path;
         if(path == null || path == "") {

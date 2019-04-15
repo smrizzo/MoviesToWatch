@@ -12,7 +12,10 @@ namespace DatingApp.API.Models
         public int Runtime { get; set; }
         public string imdb_id { get; set; }
         public int MovieId { get; set; }
-      
+        public double Vote_average { get; set; }
+        public double Rating { get; set; }
+        public bool Watched { get; set; } = false;
+        public string Trailer_url { get; set; }
         public MovieCategory MovieCategory { get; set; }
         public int MovieCategoryId { get; set; }
 

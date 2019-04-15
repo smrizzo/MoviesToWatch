@@ -13,5 +13,8 @@ namespace DatingApp.API.Dtos
         public string Release_date { get; set; }
         public int Runtime { get; set; }
         public string imdb_id { get; set; }
+        public double Vote_average { get; set; }
+        public string Trailer_url { get; set; }
+        public VideoFromMovieDbDto Videos { get; set; }
     }
 }

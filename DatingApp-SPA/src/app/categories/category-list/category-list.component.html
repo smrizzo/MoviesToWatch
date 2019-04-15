@@ -3,16 +3,10 @@
   
   <form class="form-inline" #form="ngForm" (ngSubmit)="loadCategories()" novalidate>
     <div class="col">
-      <div class="btn-group float-left">
-        <button type="button" name="addCategory" class="btn btn-primary" [routerLink]="['/category/form']">Add Category</button>
-      </div>
-    </div>
-    <div class="col">
-      <div class="btn-group float-right">
-        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="userParams.orderBy" 
-         btnRadio="lastActie">Highest Rated</button>
-        <button type="button" name="orderBy" class="btn btn-primary" [(ngModel)]="userParams.orderBy" 
-          btnRadio="created">Runtime</button>
+      <div class="d-flex justify-content-center">
+        <div class="btn-group">
+          <button type="button" name="addCategory" class="btn btn-primary" [routerLink]="['/category/form']">Add Category</button>
+        </div>
       </div>
     </div>
   </form>

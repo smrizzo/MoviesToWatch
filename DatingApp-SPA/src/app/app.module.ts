@@ -8,6 +8,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { EmbedVideo } from 'ngx-embed-video';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -88,6 +89,7 @@ export function tokenGetter() {
       NgxGalleryModule,
       NgbModule,
       ReactiveFormsModule,
+      EmbedVideo.forRoot(),
       ButtonsModule.forRoot(),
       FileUploadModule,
       PaginationModule.forRoot(),

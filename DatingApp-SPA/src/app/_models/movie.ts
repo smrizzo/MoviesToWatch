@@ -8,4 +8,8 @@ export interface Movie {
   realease_date: string;
   runtime: number;
   imdb_id: string;
+  vote_average: number;
+  rating: number;
+  watched: boolean;
+  trailer_url: string;
 }

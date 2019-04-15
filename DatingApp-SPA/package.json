@@ -27,6 +27,7 @@
     "font-awesome": "^4.7.0",
     "ng2-file-upload": "^1.3.0",
     "ngx-bootstrap": "^4.0.0",
+    "ngx-embed-video": "^1.0.4",
     "ngx-gallery": "^5.9.1",
     "rxjs": "~6.3.3",
     "time-ago-pipe": "^1.3.2",
