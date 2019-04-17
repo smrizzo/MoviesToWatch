@@ -25,7 +25,6 @@ export class CategoryCardComponent implements OnInit {
   }
 
   deleteCategory(id: number): void {
-    console.log('category to be deleted: ' + id);
     this.deletedCategory.emit(id);
   }
 

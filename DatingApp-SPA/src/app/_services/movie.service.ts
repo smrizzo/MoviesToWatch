@@ -21,8 +21,8 @@ movieForDetail = new BehaviorSubject<Movie>(null);
 currentCategory = new BehaviorSubject<MovieCategory>(null);
 constructor(private http: HttpClient, private categeryService: CategoryService) { }
 
-changeCurrentCategory(categoryId: number, userId: number) {
-  this.categeryService.getCategory(categoryId, userId).subscribe(data => {
+changeCurrentCategory(userId: number, categoryId: number) {
+  this.categeryService.getCategory(userId, categoryId).subscribe(data => {
     this.currentCategory.next(data);
   });
 }
@@ -34,7 +34,7 @@ changeMovieForDetail(movie: Movie) {
 getMovies(userId: number, categoryId: number, page?, itemsPerPage?, userParams?): Observable<PaginatedResult<Movie[]>> {
   const paginatedResult: PaginatedResult<Movie[]> = new PaginatedResult<Movie[]>();
   let params = new HttpParams();
-  this.changeCurrentCategory(categoryId, userId);
+  this.changeCurrentCategory(userId, categoryId);
 
   if (page != null && itemsPerPage != null) {
     params = params.append('pageNumber', page);
@@ -42,7 +42,6 @@ getMovies(userId: number, categoryId: number, page?, itemsPerPage?, userParams?)
   }
 
   if (userParams != null) {
-    console.log('Found params orderBy: ' + userParams.orderBy);
     params = params.append('orderBy', userParams.orderBy);
   }
 
@@ -79,7 +78,6 @@ getMovie(userId: number, id: number): Observable<Movie> {
 
 deleteMovie(userId: number, movieId: number) {
   const { id } = this.currentCategory.getValue();
-  // console.log('Deleted Movie: ' + movieId + ', for category Id: ' + id);
   return this.http.delete(`${this.baseUrl}users/${userId}/movies/c=${id}/m=${movieId}`);
 }
 

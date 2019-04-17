@@ -23,9 +23,7 @@ export class CategoryEditComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.category = data.category;
-      console.log('from resolver' + data.category.title);
     });
-    console.log(this.category.title);
   }
 
   updateCategory() {

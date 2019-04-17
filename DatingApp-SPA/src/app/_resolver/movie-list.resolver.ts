@@ -21,7 +21,6 @@ export class MovieListResolver implements Resolve<Movie[]> {
               private router: Router, private alertify: AlertifyService ) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<Movie[]> {
-    // this.movieService.changeCurrentCategory(this.authService.decodedToken.nameid, route.params.id);
     return this.movieService.getMovies(this.authService.decodedToken.nameid, route.params.id, this.pageNumber, this.pageSize).pipe(
       catchError(error => {
         this.alertify.error('Problem retrieving data');

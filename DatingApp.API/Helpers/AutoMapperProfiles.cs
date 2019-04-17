@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Net.Http;
 using AutoMapper;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
@@ -38,8 +40,7 @@ namespace DatingApp.API.Helpers
             CreateMap<MovieForCreationDto, Movie>();
             CreateMap<Movie, MovieForCreationDto>();
             CreateMap<MovieForSearchById, Movie>();
-            CreateMap<Movie, MovieForListDto>();
-             
+            CreateMap<Movie, MovieForListDto>(); 
         }
     }
 }

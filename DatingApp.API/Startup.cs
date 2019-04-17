@@ -36,12 +36,10 @@ namespace DatingApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<DataContext>(x => x.Use.)
-            // services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-            // server=localhost;database=movieapp;user=root;password=HANGten345"
+            // services.AddDbContext<DataContext>(x => x.UseMySql());
             services.AddDbContext<DataContext>(x => x.
-              UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.IncludeIgnoredWarning)));
+                  UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                    .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.IncludeIgnoredWarning)));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
               .AddJsonOptions(opt => {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -108,6 +106,7 @@ namespace DatingApp.API
                 defaults: new { controller = "Fallback", action = "Index"}
               );
             });
+            // app.UseMvc();
         }
     }
 }

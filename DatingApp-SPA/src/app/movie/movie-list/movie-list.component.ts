@@ -26,7 +26,9 @@ export class MovieListComponent implements OnInit {
   constructor(private movieService: MovieService,
               private route: ActivatedRoute,
               private authService: AuthService,
-              private alertify: AlertifyService) {}
+              private alertify: AlertifyService) {
+
+              }
 
   ngOnInit() {
     this.movieService.currentCategory.subscribe(data => {
@@ -34,7 +36,6 @@ export class MovieListComponent implements OnInit {
     });
 
     this.route.data.subscribe(data => {
-      console.log(data);
       this.movies = data.movies.result;
       this.pagination = data.movies.pagination;
     });
@@ -52,10 +53,6 @@ export class MovieListComponent implements OnInit {
         this.alertify.error('Failed to delete the Movie');
       });
     });
-  }
-
-  printMovie(movie: Movie) {
-    console.log(movie.watched);
   }
 
   resetFilter() {

@@ -105,7 +105,6 @@ namespace DatingApp.API.Controllers
       if (response.IsSuccessStatusCode)
       {
         var movieFromMovieDb = await response.Content.ReadAsAsync<MovieForCreationDto>();
-        Console.WriteLine("================= CHECKING MOVIE ARRAY:: "  + movieFromMovieDb.Videos.results);
         if(movieFromMovieDb.Videos.results != null) {
           if(movieFromMovieDb.Videos.results.ToArray().Length > 0) {
             var videoList = movieFromMovieDb.Videos.results.ToList();
@@ -113,10 +112,13 @@ namespace DatingApp.API.Controllers
             movieFromMovieDb.Trailer_url = $"https://www.youtube.com/watch?v={key}";
           } 
         }
+        if(movieFromMovieDb.Runtime == null) {
+          movieFromMovieDb.Runtime = "0";
+        }
         var categoryFromRepo = await _repo.GetMovieCategory(categoryId);
         var path = movieFromMovieDb.Poster_path;
         if(path == null || path == "") {
-          movieFromMovieDb.Poster_path = "http://res.cloudinary.com/dx5qpxwu1/image/upload/c_fill,h_237,w_158/v1555188904/no_image.jpg";
+          movieFromMovieDb.Poster_path = "https://res.cloudinary.com/dx5qpxwu1/image/upload/c_fill,h_237,w_158/v1555188904/no_image.jpg";
         } else {
           movieFromMovieDb.Poster_path = $"http://image.tmdb.org/t/p/w500{path}";
         }

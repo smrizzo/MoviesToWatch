@@ -23,7 +23,6 @@ export class CategoryListComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      console.log(data);
       this.pagination = data.categories.pagination;
       this.categories = data.categories.result;
      });

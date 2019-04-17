@@ -33,7 +33,6 @@ login(model: any) {
                localStorage.setItem('user', JSON.stringify(user.user));
                this.decodedToken = this.jwtHelper.decodeToken(user.token);
                this.currentUser = user.user;
-              //  this.changeMemberPhoto(this.currentUser.photoUrl);
             }
          })
       );
@@ -48,14 +47,4 @@ loggedIn() {
    return !this.jwtHelper.isTokenExpired(token);
 }
 
-getMovie(): Observable<any> {
-  const url = 'https://api.themoviedb.org/3/search/movie?' +
-    'api_key=3650d864e76977abd467fdc82290d485&query=captain marvel';
-  // const url = 'http://www.omdbapi.com/?t=thor+3&apikey=948cea94';
-  // const url = 'http://www.omdbapi.com/?s=captain marvel&apikey=948cea94';
-
-  // const url = 'http://www.omdbapi.com/?i=tt4154664&apikey=948cea94';
-  // const url = 'http://www.omdbapi.com/?apikey=948cea94&type=movie&s=captain america';
-  return this.http.get(url);
- }
 }

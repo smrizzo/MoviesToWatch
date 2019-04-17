@@ -19,12 +19,9 @@ export class MovieDbCardComponent implements OnInit {
     this.movieService.currentCategory.subscribe(data => {
       this.category = data;
     });
-    console.log(this.movie);
   }
 
   addMovie(movieId: number): void {
-    console.log('Movie Id' + movieId);
-    console.log('category Id' + this.category.id);
     this.movieService.addMovie(this.authService.decodedToken.nameid, this.category.id, movieId)
       .subscribe(data => {
       this.alertify.success(`Added ${this.movie.title} successfully`);
